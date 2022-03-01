@@ -1,0 +1,16 @@
+[
+{
+  "modid": "minegenshin",
+  "name": "MineGenshin",
+  "description": "A mod based on Genshin Impact",
+  "version": "${1.0.0}",
+  "mcversion": "${1.12.2}",
+  "url": "https://space.bilibili.com/499670147",
+  "updateUrl": "",
+  "authorList": ["Wrong"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
