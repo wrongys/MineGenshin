@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import static minegenshin.wrong.MineGenshin.MOD_ID;
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 import static minegenshin.wrong.elemental.ElementalDamageType.Elemental_ELECTRO;
+import static minegenshin.wrong.init.ParticleInit.myParticle1;
 
 public class ItemSwordTestLei extends ItemSword {
     public ItemSwordTestLei(ToolMaterial material) {
@@ -28,7 +29,7 @@ public class ItemSwordTestLei extends ItemSword {
 
         if (worldIn.isRemote) {
 
-            worldIn.spawnParticle(EnumParticleTypes.SWEEP_ATTACK, playerIn.posX + 3, playerIn.posY, playerIn.posZ, 0, 0, 0);
+            worldIn.spawnParticle(myParticle1, playerIn.posX + 3, playerIn.posY, playerIn.posZ, 0, 0, 0);
         }
 
 

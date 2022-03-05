@@ -61,7 +61,7 @@ public class EntityWendyBurst extends Entity {
 
                         }
 
-                        if (ticksExisted % 20 == 0 && targetEntity instanceof EntityLivingBase && l <= 6) {
+                        if (ticksExisted % 10 == 0 && targetEntity instanceof EntityLivingBase && l <= 6) {
                             targetEntity.attackEntityFrom(new DamageSource("wendy"), 1F);
                             if (world.isRemote) {
                                 world.spawnParticle(EnumParticleTypes.SWEEP_ATTACK, targetEntityPosX, targetEntityPosY + 1, targetEntityPosZ, 0, 0, 0);

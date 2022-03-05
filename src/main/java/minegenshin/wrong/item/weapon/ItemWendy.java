@@ -203,6 +203,7 @@ class SlowFall {
             ItemStack stack = player.getHeldItemMainhand();
             if (stack != null && stack.getItem() instanceof ItemWendy && !player.isInWater()) {
                 player.motionY = -0.3;
+                player.fallDistance = 0;
             }
         }
     }
