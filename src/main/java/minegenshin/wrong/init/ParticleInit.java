@@ -1,6 +1,7 @@
 package minegenshin.wrong.init;
 
 import minegenshin.wrong.render.particle.ParticleExplosionLargeCopy;
+import minegenshin.wrong.render.particle.ParticleRedstoneCopy;
 import minegenshin.wrong.render.particle.ParticleSweepAttackCopy;
 import minegenshin.wrong.render.particle.ParticleWendyExplosion;
 import net.minecraft.client.Minecraft;
@@ -11,6 +12,7 @@ public class ParticleInit {
     public static EnumParticleTypes myParticle1;
     public static EnumParticleTypes myParticle2;
     public static EnumParticleTypes myParticle3;
+    public static EnumParticleTypes ParticleMGRedstone;
 
     public static void init() {
         Class<?>[] particleEnum = {String.class, int.class, boolean.class,int.class};
@@ -20,11 +22,14 @@ public class ParticleInit {
                 "sweep_copy", 51, false,0);
         myParticle3  =  EnumHelper.addEnum(EnumParticleTypes.class, "wendy_explosion", particleEnum,
                 "wendy_explosion", 52, false,0);
+        ParticleMGRedstone  =  EnumHelper.addEnum(EnumParticleTypes.class, "wendy_explosion", particleEnum,
+                "wendy_explosion", 53, false,0);
 
 
         Minecraft.getMinecraft().effectRenderer.registerParticle(50, new ParticleExplosionLargeCopy.Factory());
         Minecraft.getMinecraft().effectRenderer.registerParticle(51, new ParticleSweepAttackCopy.Factory());
         Minecraft.getMinecraft().effectRenderer.registerParticle(52, new ParticleWendyExplosion.Factory());
+        Minecraft.getMinecraft().effectRenderer.registerParticle(53, new ParticleRedstoneCopy.Factory());
 
     }
 

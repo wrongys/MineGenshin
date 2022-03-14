@@ -11,8 +11,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import static minegenshin.wrong.MineGenshin.MOD_ID;
-import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 import static minegenshin.wrong.elemental.ElementalDamageType.Elemental_ELECTRO;
+import static minegenshin.wrong.init.ParticleInit.ParticleMGRedstone;
 import static minegenshin.wrong.init.ParticleInit.myParticle1;
 
 public class ItemSwordTestLei extends ItemSword {
@@ -30,17 +30,19 @@ public class ItemSwordTestLei extends ItemSword {
         if (worldIn.isRemote) {
 
             worldIn.spawnParticle(myParticle1, playerIn.posX + 3, playerIn.posY, playerIn.posZ, 0, 0, 0);
+
         }
 
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
+
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         if (!target.world.isRemote) {
 
 
-            Elemental.elementalAttack(attacker,target,Elemental_ELECTRO);
+            Elemental.elementalAttack(attacker, target, Elemental_ELECTRO);
 
         }
 
