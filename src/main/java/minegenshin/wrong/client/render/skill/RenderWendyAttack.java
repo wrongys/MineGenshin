@@ -1,4 +1,4 @@
-package minegenshin.wrong.render.entity.skill;
+package minegenshin.wrong.client.render.skill;
 
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;

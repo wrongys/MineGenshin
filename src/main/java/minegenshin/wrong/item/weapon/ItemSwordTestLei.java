@@ -1,19 +1,18 @@
 package minegenshin.wrong.item.weapon;
 
 import minegenshin.wrong.elemental.attack.Elemental;
+import minegenshin.wrong.init.ParticleInit;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import static minegenshin.wrong.MineGenshin.MOD_ID;
 import static minegenshin.wrong.elemental.ElementalDamageType.Elemental_ELECTRO;
-import static minegenshin.wrong.init.ParticleInit.ParticleMGRedstone;
-import static minegenshin.wrong.init.ParticleInit.myParticle1;
 
 public class ItemSwordTestLei extends ItemSword {
     public ItemSwordTestLei(ToolMaterial material) {
@@ -29,7 +28,9 @@ public class ItemSwordTestLei extends ItemSword {
 
         if (worldIn.isRemote) {
 
-            worldIn.spawnParticle(myParticle1, playerIn.posX + 3, playerIn.posY, playerIn.posZ, 0, 0, 0);
+            float x = -MathHelper.sin(playerIn.rotationYaw * 0.017453292F);
+            float z = MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
+            worldIn.spawnParticle(ParticleInit.getMGParticle(50), playerIn.posX + 3 * x, playerIn.posY + 1, playerIn.posZ + 3 * z, 0, 0, 0);
 
         }
 

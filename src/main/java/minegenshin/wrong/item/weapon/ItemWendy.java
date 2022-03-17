@@ -1,10 +1,12 @@
 package minegenshin.wrong.item.weapon;
 
+import minegenshin.wrong.EnumSAB;
 import minegenshin.wrong.MineGenshin;
 import minegenshin.wrong.capability.MGWeaponCdCapability;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
+import minegenshin.wrong.network.message.MessageSABClient;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -75,7 +77,6 @@ public class ItemWendy extends ItemMineGenshinWeapon {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, true);
         if (ret != null) return ret;
-
         playerIn.setActiveHand(handIn);
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 
@@ -148,22 +149,33 @@ public class ItemWendy extends ItemMineGenshinWeapon {
         return arrow;
     }
 
+
     @Override
-    public void burst(EntityPlayer entityPlayer, ItemStack itemStack) {
+    public void skill(EntityPlayer player, ItemStack stack) {
+        ItemWendy item = (ItemWendy) stack.getItem();
+        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        if (capability.hasSkillKey(item)) return;
+        capability.setSkillCd(item, 10 * 20);
+        SimpleNetworkWrapperLoader.INSTANCE.sendTo(new MessageSABClient(player.getEntityId(), player.getName(), EnumSAB.SKILL), (EntityPlayerMP) player);
+    }
+
+    @Override
+    public void burst(EntityPlayer player, ItemStack itemStack) {
         ItemWendy item = (ItemWendy) itemStack.getItem();
-        MGWeaponCdCapability capability = entityPlayer.getCapability(CapabilityInit.MGWEAPON, null);
+        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasBurstKey(item)) return;
         if (item.hasNBTTagCompoundValue(itemStack, "burst") == true) return;
         setNBTTagCompound(itemStack, "burst", true);
     }
 
     @Override
-    public void skill(EntityPlayer entityPlayer, ItemStack stack) {
-        ItemWendy item = (ItemWendy) stack.getItem();
-        MGWeaponCdCapability capability = entityPlayer.getCapability(CapabilityInit.MGWEAPON, null);
-        if (capability.hasSkillKey(item)) return;
-        capability.setSkillCd(item, 10 * 20);
-        SimpleNetworkWrapperLoader.INSTANCE.sendTo(new ItemWendyMessageSkillExtra(entityPlayer.getEntityId(), entityPlayer.getName()), (EntityPlayerMP) entityPlayer);
+    public void skillClient(EntityPlayer player, ItemStack stack) {
+        player.motionY = 1.2;
+    }
+
+    @Override
+    public void burstClient(EntityPlayer player, ItemStack stack) {
+        super.burstClient(player, stack);
     }
 
     public void setNBTTagCompound(ItemStack itemStack, String key, Boolean value) {

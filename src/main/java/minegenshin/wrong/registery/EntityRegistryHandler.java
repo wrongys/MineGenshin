@@ -2,6 +2,7 @@ package minegenshin.wrong.registery;
 
 
 import minegenshin.wrong.MineGenshin;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;
 import net.minecraftforge.event.RegistryEvent;
@@ -15,12 +16,14 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class EntityRegistryHandler {
 
     public static EntityEntry WENDY_EXPLOSION = EntityEntryBuilder.create().entity(EntityWendyBurst.class).id("wendy_explosion", 0).name(MineGenshin.MOD_ID + "wendy_explosion").tracker(80, 3, true).build();
-    public static EntityEntry WENDY_ATTACK = EntityEntryBuilder.create().entity(EntityWendyAttack.class).id("wendy_attack", 1).name(MineGenshin.MOD_ID + "wendy_attack").tracker(80, 1, true).build();
+    public static EntityEntry WENDY_ATTACK = EntityEntryBuilder.create().entity(EntityWendyAttack.class).id("wendy_attack", 1).name(MineGenshin.MOD_ID + "wendy_attack").tracker(80, 3, true).build();
+    public static EntityEntry DILUC = EntityEntryBuilder.create().entity(EntityDilucBurst.class).id("diluc",2).name(MineGenshin.MOD_ID + "diluc").tracker(80,3,true).build();
 
     public static EntityEntry[] Entities = {
 
             WENDY_EXPLOSION,
-            WENDY_ATTACK
+            WENDY_ATTACK,
+            DILUC
     };
 
 

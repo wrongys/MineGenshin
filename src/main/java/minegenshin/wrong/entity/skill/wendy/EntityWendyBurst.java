@@ -13,6 +13,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static minegenshin.wrong.item.weapon.ItemMineGenshinWeapon.BURST;
+
 public class EntityWendyBurst extends Entity {
 
 
@@ -37,35 +39,33 @@ public class EntityWendyBurst extends Entity {
         AxisAlignedBB aabb = new AxisAlignedBB(x + 10, y + 10, z + 10, x - 10, y - 10, z - 10);
         List<Entity> entityList = world.getEntitiesWithinAABB(Entity.class, aabb);
 
-        if (!entityList.isEmpty()) {
 
-            for (Entity targetEntity : entityList
-            ) {
-                if (!(targetEntity instanceof EntityPlayer) && targetEntity.isNonBoss()) {
+        for (Entity targetEntity : entityList
+        ) {
+            if (!(targetEntity instanceof EntityPlayer) && targetEntity.isNonBoss()) {
 
-                    double targetEntityPosX = targetEntity.posX;
-                    double targetEntityPosY = targetEntity.posY;
-                    double targetEntityPosZ = targetEntity.posZ;
+                double targetEntityPosX = targetEntity.posX;
+                double targetEntityPosY = targetEntity.posY;
+                double targetEntityPosZ = targetEntity.posZ;
 
-                    if (!(x == targetEntityPosX && y == targetEntityPosY && z == targetEntityPosZ)) {
+                if (!(x == targetEntityPosX && y == targetEntityPosY && z == targetEntityPosZ)) {
 
-                        double vectorX = x - targetEntity.posX;
-                        double vectorY = y - targetEntity.posY;
-                        double vectorZ = z - targetEntity.posZ;
-                        double l = Math.sqrt(vectorX * vectorX + vectorY * vectorY + vectorZ * vectorZ);
-                        if (l < 10 && l > 1) {
+                    double vectorX = x - targetEntity.posX;
+                    double vectorY = y - targetEntity.posY;
+                    double vectorZ = z - targetEntity.posZ;
+                    double l = Math.sqrt(vectorX * vectorX + vectorY * vectorY + vectorZ * vectorZ);
+                    if (l < 10 && l > 1) {
 
-                            targetEntity.motionX = targetEntity.motionX + vectorX / l * 0.11;
-                            targetEntity.motionY = targetEntity.motionY + vectorY / l * 0.11;
-                            targetEntity.motionZ = targetEntity.motionZ + vectorZ / l * 0.11;
+                        targetEntity.motionX = targetEntity.motionX + vectorX / l * 0.11;
+                        targetEntity.motionY = targetEntity.motionY + vectorY / l * 0.11;
+                        targetEntity.motionZ = targetEntity.motionZ + vectorZ / l * 0.11;
 
-                        }
+                    }
 
-                        if (ticksExisted % 10 == 0 && targetEntity instanceof EntityLivingBase && l <= 6) {
-                            targetEntity.attackEntityFrom(new DamageSource("wendy"), 1F);
-                            if (world.isRemote) {
-                                world.spawnParticle(EnumParticleTypes.SWEEP_ATTACK, targetEntityPosX, targetEntityPosY + 1, targetEntityPosZ, 0, 0, 0);
-                            }
+                    if (ticksExisted % 10 == 0 && targetEntity instanceof EntityLivingBase && l <= 6) {
+                        targetEntity.attackEntityFrom(BURST, 1F);
+                        if (world.isRemote) {
+                            world.spawnParticle(EnumParticleTypes.SWEEP_ATTACK, targetEntityPosX, targetEntityPosY + 1, targetEntityPosZ, 0, 0, 0);
                         }
                     }
                 }

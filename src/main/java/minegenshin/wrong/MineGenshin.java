@@ -2,12 +2,14 @@ package minegenshin.wrong;
 
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;
+import minegenshin.wrong.event.PlayerRender;
 import minegenshin.wrong.init.*;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
-import minegenshin.wrong.render.entity.skill.RenderWendyAttack;
-import minegenshin.wrong.render.entity.skill.RenderWendyBurst;
+import minegenshin.wrong.client.render.skill.RenderWendyAttack;
+import minegenshin.wrong.client.render.skill.RenderWendyBurst;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -29,7 +31,6 @@ public class MineGenshin {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-
     }
 
     @EventHandler
@@ -47,11 +48,11 @@ public class MineGenshin {
         KeyBindingInit.init();
     }
 
-    @SideOnly(Side.CLIENT)
     @EventHandler
+    @SideOnly(Side.CLIENT)
     public void posInit(FMLPostInitializationEvent event) {
         ParticleInit.init();
-        Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityWendyBurst.class, new RenderWendyBurst(Minecraft.getMinecraft().getRenderManager()));
-        Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityWendyAttack.class, new RenderWendyAttack(Minecraft.getMinecraft().getRenderManager()));
+        RenderInit.init();
+
     }
 }

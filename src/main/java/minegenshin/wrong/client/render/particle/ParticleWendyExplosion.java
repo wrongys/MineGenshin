@@ -1,4 +1,4 @@
-package minegenshin.wrong.render.particle;
+package minegenshin.wrong.client.render.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;

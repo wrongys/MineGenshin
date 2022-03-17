@@ -1,12 +1,10 @@
 package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
-import minegenshin.wrong.capability.MGWeaponCdCapability;
-import minegenshin.wrong.init.CapabilityInit;
+import minegenshin.wrong.EnumSAB;
 import minegenshin.wrong.item.weapon.ItemMineGenshinWeapon;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -15,48 +13,59 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 
-public class MessageBurst implements IMessage {
+public class MessageSAB implements IMessage {
 
     int id;
     String userName;
+    EnumSAB sab;
 
-    public MessageBurst() {
+    public MessageSAB() {
     }
 
-    public MessageBurst(int id, String userName) {
+    public MessageSAB(int id, String userName, EnumSAB sab) {
         this.id = id;
         this.userName = userName;
+        this.sab = sab;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         this.id = buf.readInt();
         this.userName = ByteBufUtils.readUTF8String(buf);
+        this.sab = EnumSAB.valueOf(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(id);
         ByteBufUtils.writeUTF8String(buf, userName);
-
+        ByteBufUtils.writeUTF8String(buf, sab.toString());
     }
 
-    public static class Handler implements IMessageHandler<MessageBurst, IMessage> {
+    public static class Handler implements IMessageHandler<MessageSAB, IMessage> {
         @Override
-        public IMessage onMessage(MessageBurst message, MessageContext ctx) {
+        public IMessage onMessage(MessageSAB message, MessageContext ctx) {
             if (ctx.side == Side.SERVER) {
-                MinecraftServer mc = FMLCommonHandler.instance().getMinecraftServerInstance();
-
-                mc.addScheduledTask(new Runnable() {
+                FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(new Runnable() {
                     @Override
                     public void run() {
                         EntityPlayerMP player = ctx.getServerHandler().player;
                         ItemStack stack = player.getHeldItemMainhand();
+
                         if (stack != null && stack.getItem() instanceof ItemMineGenshinWeapon) {
                             ItemMineGenshinWeapon item = (ItemMineGenshinWeapon) stack.getItem();
-                            MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
-                            item.burst(player, stack);
+
+                            switch (message.sab){
+                                case SKILL:
+                                    item.skill(player, stack);
+                                    break;
+                                case BURST:
+                                    item.burst(player, stack);
+                                    break;
+
+                            }
                         }
+
                     }
                 });
             }

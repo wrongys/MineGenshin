@@ -1,31 +1,36 @@
 package minegenshin.wrong.item.weapon;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 
 public class ItemMineGenshinWeapon extends Item implements IGenshinWeapon {
 
+    public static final DamageSource SKILL = new DamageSource("skill");
+    public static final DamageSource BURST = new DamageSource("burst");
+
     @Override
-    public void burst(EntityPlayer entityPlayer, ItemStack itemStack) {
+    public void skill(EntityPlayer player, ItemStack stack) {
 
     }
 
     @Override
-    public void skill(EntityPlayer entityPlayer, ItemStack stack) {
+    public void burst(EntityPlayer player, ItemStack stack) {
 
     }
 
     @Override
-    public void setNBTTagCompound(ItemStack itemStack, String key, Boolean value) {
+    public void skillClient(EntityPlayer player, ItemStack stack) {
 
     }
 
     @Override
-    public boolean hasNBTTagCompoundValue(ItemStack itemStack, String key) {
-        return false;
+    public void burstClient(EntityPlayer player, ItemStack stack) {
+
     }
+
+
 }
 
 

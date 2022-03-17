@@ -1,18 +1,19 @@
 package minegenshin.wrong.item.weapon;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public interface IGenshinWeapon {
 
-    public  void burst(EntityPlayer entityPlayer, ItemStack stack);
+    public  void skill(EntityPlayer player, ItemStack stack);
 
-    public  void skill(EntityPlayer entityPlayer, ItemStack stack);
+    public  void burst(EntityPlayer player, ItemStack stack);
 
-    public  void setNBTTagCompound(ItemStack itemStack, String key, Boolean value);
 
-    public boolean hasNBTTagCompoundValue(ItemStack itemStack, String key);
+    public void skillClient(EntityPlayer player, ItemStack stack);
 
+    public void burstClient(EntityPlayer player, ItemStack stack);
 
 }

@@ -1,11 +1,12 @@
 package minegenshin.wrong.event;
 
 
+import minegenshin.wrong.EnumSAB;
 import minegenshin.wrong.init.KeyBindingInit;
 import minegenshin.wrong.item.weapon.ItemMineGenshinWeapon;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
-import minegenshin.wrong.network.message.MessageBurst;
-import minegenshin.wrong.network.message.MessageSkill;
+import minegenshin.wrong.network.message.MessageSAB;
+import minegenshin.wrong.network.message.MessageSABClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class KeySAB {
             EntityPlayerSP player = mc.player;
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
             if (stack != null && stack.getItem() instanceof ItemMineGenshinWeapon) {
-                SimpleNetworkWrapperLoader.INSTANCE.sendToServer(new MessageSkill(player.getEntityId(), player.getName()));
+                SimpleNetworkWrapperLoader.INSTANCE.sendToServer(new MessageSAB(player.getEntityId(), player.getName(),EnumSAB.SKILL));
             }
         }
     }
@@ -39,7 +40,7 @@ public class KeySAB {
             EntityPlayerSP player = mc.player;
             ItemStack stack = player.getHeldItemMainhand();
             if (stack != null && stack.getItem() instanceof ItemMineGenshinWeapon) {
-                SimpleNetworkWrapperLoader.INSTANCE.sendToServer(new MessageBurst(player.getEntityId(), player.getName()));
+                SimpleNetworkWrapperLoader.INSTANCE.sendToServer(new MessageSAB(player.getEntityId(), player.getName(), EnumSAB.BURST));
             }
         }
     }

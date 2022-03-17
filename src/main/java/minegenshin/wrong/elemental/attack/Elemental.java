@@ -1,13 +1,14 @@
 package minegenshin.wrong.elemental.attack;
 
 import minegenshin.wrong.capability.ElementalCapability;
+import minegenshin.wrong.init.CapabilityInit;
+import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageElemental;
 import minegenshin.wrong.network.message.MessageSpawnParticle;
-import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
-import minegenshin.wrong.init.CapabilityInit;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import javax.annotation.Nullable;
@@ -126,7 +127,7 @@ public class Elemental {
                 } else if (attachType.equals(ELECTRO)) {
 
                     //超导 super conduct
-                    elementalRemove(target, elementalCapability,damageSource);
+                    elementalRemove(target, elementalCapability, damageSource);
                     elementalSuperconduct(target);
 
                 }
@@ -142,7 +143,7 @@ public class Elemental {
                 } else if (attachType.equals(HYDRO)) {
 
                     //感电
-                    elementalRemove(target, elementalCapability,damageSource);
+                    elementalRemove(target, elementalCapability, damageSource);
                     elementalElectroCharged(target);
 
                 } else if (attachType.equals(PYRO)) {
@@ -154,7 +155,7 @@ public class Elemental {
                 } else if (attachType.equals(CRYO)) {
 
                     //超导
-                    elementalRemove(target, elementalCapability,damageSource);
+                    elementalRemove(target, elementalCapability, damageSource);
                     elementalSuperconduct(target);
 
 
@@ -203,7 +204,7 @@ public class Elemental {
     public static void elementalOverloaded(EntityLivingBase target) {//超载
 
         AxisAlignedBB aabb = new AxisAlignedBB(target.posX + 2, target.posY + 2, target.posZ + 2,
-                                               target.posX - 2, target.posY - 2, target.posZ - 2);
+                target.posX - 2, target.posY - 2, target.posZ - 2);
         List<EntityLiving> livings = target.world.getEntitiesWithinAABB(EntityLiving.class, aabb);
         for (EntityLiving entity : livings
         ) {
@@ -211,14 +212,14 @@ public class Elemental {
             entity.attackEntityFrom(Chaozai, 2);
 
         }
-        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(target));
+        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), (float) target.posX, (float) target.posY, (float) target.posZ));
     }
 
-    public static void elementalElectroCharged(EntityLivingBase target){
+    public static void elementalElectroCharged(EntityLivingBase target) {
 
     }
 
-    public static void elementalSuperconduct(EntityLivingBase target){//超导
+    public static void elementalSuperconduct(EntityLivingBase target) {//超导
 
         AxisAlignedBB aabb = new AxisAlignedBB(target.posX + 2, target.posY + 2, target.posZ + 2,
                 target.posX - 2, target.posY - 2, target.posZ - 2);
@@ -229,7 +230,8 @@ public class Elemental {
             entity.attackEntityFrom(Chaozai, 2);
 
         }
-        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(target));
+        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), (float) target.posX, (float) target.posY, (float) target.posZ));
+
 
     }
 
