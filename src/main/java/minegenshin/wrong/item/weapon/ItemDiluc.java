@@ -6,13 +6,13 @@ import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
@@ -26,7 +26,7 @@ import java.util.List;
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 import static minegenshin.wrong.init.ParticleInit.ParticleMGSweepPyro;
 
-public class ItemDiluc extends ItemMineGenshinWeapon {
+public class ItemDiluc extends Item implements IMineGenshinWeapon {
 
     public ItemDiluc() {
         this.setMaxStackSize(1);
@@ -94,7 +94,8 @@ public class ItemDiluc extends ItemMineGenshinWeapon {
     @Override
     public void burstClient(EntityPlayer player, ItemStack stack) {
 
-        super.burstClient(player, stack);
+
+
     }
 
 

@@ -2,7 +2,7 @@ package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
 import minegenshin.wrong.EnumSAB;
-import minegenshin.wrong.item.weapon.ItemMineGenshinWeapon;
+import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -52,8 +52,8 @@ public class MessageSAB implements IMessage {
                         EntityPlayerMP player = ctx.getServerHandler().player;
                         ItemStack stack = player.getHeldItemMainhand();
 
-                        if (stack != null && stack.getItem() instanceof ItemMineGenshinWeapon) {
-                            ItemMineGenshinWeapon item = (ItemMineGenshinWeapon) stack.getItem();
+                        if (stack != null && stack.getItem() instanceof IMineGenshinWeapon) {
+                            IMineGenshinWeapon item = (IMineGenshinWeapon) stack.getItem();
 
                             switch (message.sab){
                                 case SKILL:

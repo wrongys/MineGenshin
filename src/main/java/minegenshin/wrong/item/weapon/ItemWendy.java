@@ -14,6 +14,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
@@ -29,7 +30,7 @@ import javax.annotation.Nullable;
 
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 
-public class ItemWendy extends ItemMineGenshinWeapon {
+public class ItemWendy extends Item implements IMineGenshinWeapon {
     public ItemWendy() {
 
         this.setMaxStackSize(1);
@@ -104,7 +105,7 @@ public class ItemWendy extends ItemMineGenshinWeapon {
                     if (hasNBTTagCompoundValue(stack, "burst")) {
                         entityWendyAttack.setBurst(true);
                         setNBTTagCompound(stack, "burst", false);
-                        entityplayer.getCapability(CapabilityInit.MGWEAPON, null).setBurstCd((ItemMineGenshinWeapon) stack.getItem(), 15 * 20);
+                        entityplayer.getCapability(CapabilityInit.MGWEAPON, null).setBurstCd((IMineGenshinWeapon) stack.getItem(), 15 * 20);
                     }
                     entityWendyAttack.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 0.5F);
                     worldIn.spawnEntity(entityWendyAttack);
@@ -175,7 +176,8 @@ public class ItemWendy extends ItemMineGenshinWeapon {
 
     @Override
     public void burstClient(EntityPlayer player, ItemStack stack) {
-        super.burstClient(player, stack);
+
+
     }
 
     public void setNBTTagCompound(ItemStack itemStack, String key, Boolean value) {

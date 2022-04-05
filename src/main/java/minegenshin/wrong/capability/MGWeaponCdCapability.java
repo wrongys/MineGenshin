@@ -1,7 +1,7 @@
 package minegenshin.wrong.capability;
 
 import com.google.common.collect.Maps;
-import minegenshin.wrong.item.weapon.ItemMineGenshinWeapon;
+import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -10,45 +10,45 @@ import java.util.Set;
 
 public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
 
-    private final Map<ItemMineGenshinWeapon, Integer> cooldowns_skill = Maps.<ItemMineGenshinWeapon, Integer>newHashMap();
-    private final Map<ItemMineGenshinWeapon, Integer> cooldowns_burst = Maps.<ItemMineGenshinWeapon, Integer>newHashMap();
+    private final Map<IMineGenshinWeapon, Integer> cooldowns_skill = Maps.<IMineGenshinWeapon, Integer>newHashMap();
+    private final Map<IMineGenshinWeapon, Integer> cooldowns_burst = Maps.<IMineGenshinWeapon, Integer>newHashMap();
 
-    public int getSkillCd(ItemMineGenshinWeapon item) {
+    public int getSkillCd(IMineGenshinWeapon item) {
         return cooldowns_skill.get(item);
     }
 
-    public int getBurstCd(ItemMineGenshinWeapon item) {
+    public int getBurstCd(IMineGenshinWeapon item) {
         return cooldowns_burst.get(item);
     }
 
-    public void setSkillCd(ItemMineGenshinWeapon item, int cd) {
+    public void setSkillCd(IMineGenshinWeapon item, int cd) {
         cooldowns_skill.put(item, cd);
     }
 
-    public void setBurstCd(ItemMineGenshinWeapon item, int cd) {
+    public void setBurstCd(IMineGenshinWeapon item, int cd) {
         cooldowns_burst.put(item, cd);
     }
 
-    public void removeSkillCd(ItemMineGenshinWeapon item) {
+    public void removeSkillCd(IMineGenshinWeapon item) {
         cooldowns_skill.remove(item);
     }
 
-    public void removeBurstCd(ItemMineGenshinWeapon item) {
+    public void removeBurstCd(IMineGenshinWeapon item) {
         cooldowns_burst.remove(item);
     }
 
-    public boolean hasSkillKey(ItemMineGenshinWeapon item) {
+    public boolean hasSkillKey(IMineGenshinWeapon item) {
         return cooldowns_skill.containsKey(item);
     }
 
-    public boolean hasBurstKey(ItemMineGenshinWeapon item) {
+    public boolean hasBurstKey(IMineGenshinWeapon item) {
         return cooldowns_burst.containsKey(item);
     }
 
     public void tick() {
-        Set<ItemMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
+        Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
         if (!sets_skill.isEmpty()) {
-            for (ItemMineGenshinWeapon item : sets_skill
+            for (IMineGenshinWeapon item : sets_skill
             ) {
                 int cd = this.getSkillCd(item);
 
@@ -64,10 +64,10 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         }
 
 
-        Set<ItemMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
+        Set<IMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
 
         if (!sets_burst.isEmpty()) {
-            for (ItemMineGenshinWeapon item : sets_burst
+            for (IMineGenshinWeapon item : sets_burst
             ) {
                 int cd = this.getBurstCd(item);
 
@@ -87,14 +87,14 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbt = new NBTTagCompound();
-        Set<ItemMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
-        for (ItemMineGenshinWeapon set : sets_skill
+        Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
+        for (IMineGenshinWeapon set : sets_skill
         ) {
             nbt.setInteger(set.toString(), cooldowns_skill.get(set));
         }
 
-        Set<ItemMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
-        for (ItemMineGenshinWeapon set : sets_burst
+        Set<IMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
+        for (IMineGenshinWeapon set : sets_burst
         ) {
             nbt.setInteger(set.toString(), cooldowns_burst.get(set));
         }
@@ -105,14 +105,14 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        Set<ItemMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
-        for (ItemMineGenshinWeapon set : sets_skill
+        Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
+        for (IMineGenshinWeapon set : sets_skill
         ) {
             cooldowns_skill.put(set, nbt.getInteger(set.toString()));
         }
 
-        Set<ItemMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
-        for (ItemMineGenshinWeapon set : sets_burst
+        Set<IMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
+        for (IMineGenshinWeapon set : sets_burst
         ) {
             cooldowns_burst.put(set, nbt.getInteger(set.toString()));
         }

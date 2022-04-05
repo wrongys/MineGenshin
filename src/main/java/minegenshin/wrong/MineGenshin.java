@@ -1,15 +1,8 @@
 package minegenshin.wrong;
 
-import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
-import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;
-import minegenshin.wrong.event.PlayerRender;
 import minegenshin.wrong.init.*;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
-import minegenshin.wrong.client.render.skill.RenderWendyAttack;
-import minegenshin.wrong.client.render.skill.RenderWendyBurst;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

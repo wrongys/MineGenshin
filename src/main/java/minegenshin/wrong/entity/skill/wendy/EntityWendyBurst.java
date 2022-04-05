@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +12,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static minegenshin.wrong.item.weapon.ItemMineGenshinWeapon.BURST;
+import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
+
 
 public class EntityWendyBurst extends Entity {
 

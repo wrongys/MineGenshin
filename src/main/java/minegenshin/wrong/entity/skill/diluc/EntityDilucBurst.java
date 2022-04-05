@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static minegenshin.wrong.item.weapon.ItemMineGenshinWeapon.BURST;
+import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
 
 
 public class EntityDilucBurst extends EntityLiving {
