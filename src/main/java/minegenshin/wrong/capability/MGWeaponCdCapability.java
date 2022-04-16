@@ -5,6 +5,7 @@ import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
 
     private final Map<IMineGenshinWeapon, Integer> cooldowns_skill = Maps.<IMineGenshinWeapon, Integer>newHashMap();
     private final Map<IMineGenshinWeapon, Integer> cooldowns_burst = Maps.<IMineGenshinWeapon, Integer>newHashMap();
+    private final Map<IMineGenshinWeapon, Integer> cooldowns_extra = Maps.<IMineGenshinWeapon, Integer>newHashMap();
 
     public int getSkillCd(IMineGenshinWeapon item) {
         return cooldowns_skill.get(item);
@@ -21,6 +23,11 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         return cooldowns_burst.get(item);
     }
 
+    public int getExtraCd(IMineGenshinWeapon item) {
+        return cooldowns_extra.get(item);
+    }
+
+
     public void setSkillCd(IMineGenshinWeapon item, int cd) {
         cooldowns_skill.put(item, cd);
     }
@@ -29,13 +36,10 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         cooldowns_burst.put(item, cd);
     }
 
-    public void removeSkillCd(IMineGenshinWeapon item) {
-        cooldowns_skill.remove(item);
+    public void setExtraCd(IMineGenshinWeapon item, int cd) {
+        cooldowns_extra.put(item, cd);
     }
 
-    public void removeBurstCd(IMineGenshinWeapon item) {
-        cooldowns_burst.remove(item);
-    }
 
     public boolean hasSkillKey(IMineGenshinWeapon item) {
         return cooldowns_skill.containsKey(item);
@@ -45,39 +49,57 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         return cooldowns_burst.containsKey(item);
     }
 
+    public boolean hasExtraKey(IMineGenshinWeapon item) { return cooldowns_extra.containsKey(item); }
+
     public void tick() {
-        Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
-        if (!sets_skill.isEmpty()) {
-            for (IMineGenshinWeapon item : sets_skill
-            ) {
-                int cd = this.getSkillCd(item);
 
-                if (cd >= 1) {
-                    this.setSkillCd(item, cd - 1);
-                }
+        Iterator it_skill = cooldowns_skill.keySet().iterator();
 
-                if (this.getSkillCd(item) == 0) {
-                    this.removeSkillCd(item);
-                }
+        while (it_skill.hasNext()) {
+
+            IMineGenshinWeapon next = (IMineGenshinWeapon) it_skill.next();
+            int cd = this.getSkillCd(next);
+
+            if (cd >= 1) {
+                this.setSkillCd(next, cd - 1);
+            }
+
+            if (this.getSkillCd(next) == 0) {
+                it_skill.remove();
             }
 
         }
 
+        Iterator it_burst = cooldowns_burst.keySet().iterator();
 
-        Set<IMineGenshinWeapon> sets_burst = cooldowns_burst.keySet();
+        while (it_burst.hasNext()) {
 
-        if (!sets_burst.isEmpty()) {
-            for (IMineGenshinWeapon item : sets_burst
-            ) {
-                int cd = this.getBurstCd(item);
+            IMineGenshinWeapon next = (IMineGenshinWeapon) it_burst.next();
+            int cd = this.getBurstCd(next);
 
-                if (cd >= 1) {
-                    this.setBurstCd(item, cd - 1);
-                }
+            if (cd >= 1) {
+                this.setBurstCd(next, cd - 1);
+            }
 
-                if (this.getBurstCd(item) == 0) {
-                    this.removeBurstCd(item);
-                }
+            if (this.getBurstCd(next) == 0) {
+                it_burst.remove();
+            }
+
+        }
+
+        Iterator it_extra = cooldowns_extra.keySet().iterator();
+
+        while (it_extra.hasNext()) {
+
+            IMineGenshinWeapon next = (IMineGenshinWeapon) it_extra.next();
+            int cd = this.getExtraCd(next);
+
+            if (cd >= 1) {
+                this.setExtraCd(next, cd - 1);
+            }
+
+            if (this.getExtraCd(next) == 0) {
+                it_extra.remove();
             }
 
         }
@@ -86,7 +108,9 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
 
     @Override
     public NBTTagCompound serializeNBT() {
+
         NBTTagCompound nbt = new NBTTagCompound();
+
         Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
         for (IMineGenshinWeapon set : sets_skill
         ) {
@@ -97,6 +121,12 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         for (IMineGenshinWeapon set : sets_burst
         ) {
             nbt.setInteger(set.toString(), cooldowns_burst.get(set));
+        }
+
+        Set<IMineGenshinWeapon> sets_extra = cooldowns_extra.keySet();
+        for (IMineGenshinWeapon set : sets_extra
+        ) {
+            nbt.setInteger(set.toString(), cooldowns_extra.get(set));
         }
 
 
@@ -116,5 +146,12 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         ) {
             cooldowns_burst.put(set, nbt.getInteger(set.toString()));
         }
+
+        Set<IMineGenshinWeapon> sets_extra = cooldowns_extra.keySet();
+        for (IMineGenshinWeapon set : sets_extra
+        ) {
+            cooldowns_extra.put(set, nbt.getInteger(set.toString()));
+        }
+
     }
 }

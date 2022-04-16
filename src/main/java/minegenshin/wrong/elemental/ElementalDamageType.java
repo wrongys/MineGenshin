@@ -1,5 +1,7 @@
 package minegenshin.wrong.elemental;
 
+//元素反应 废案
+
 import net.minecraft.util.DamageSource;
 
 import static minegenshin.wrong.elemental.ElementalType.*;

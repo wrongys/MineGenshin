@@ -16,8 +16,8 @@ public interface IMineGenshinWeapon {
     public  void burst(EntityPlayer player, ItemStack stack);
 
 
-    public void skillClient(EntityPlayer player, ItemStack stack);
+    public void skillClient(EntityPlayer player);
 
-    public void burstClient(EntityPlayer player, ItemStack stack);
+    public void burstClient(EntityPlayer player);
 
 }

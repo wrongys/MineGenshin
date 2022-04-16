@@ -1,5 +1,7 @@
 package minegenshin.wrong.elemental;
 
+//元素反应 废案
+
 public class ElementalType {
 
     public static final String NULL =       "Null";

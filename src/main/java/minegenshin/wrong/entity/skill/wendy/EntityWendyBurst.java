@@ -1,5 +1,6 @@
 package minegenshin.wrong.entity.skill.wendy;
 
+import minegenshin.wrong.entity.skill.IMineGenshinEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +16,7 @@ import java.util.List;
 import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
 
 
-public class EntityWendyBurst extends Entity {
+public class EntityWendyBurst extends Entity implements IMineGenshinEntity {
 
 
     private ItemStack itemStack;
@@ -42,7 +43,7 @@ public class EntityWendyBurst extends Entity {
 
         for (Entity targetEntity : entityList
         ) {
-            if (!(targetEntity instanceof EntityPlayer) && targetEntity.isNonBoss()) {
+            if (!(targetEntity instanceof EntityPlayer) && targetEntity.isNonBoss() && !(targetEntity instanceof IMineGenshinEntity)) {
 
                 double targetEntityPosX = targetEntity.posX;
                 double targetEntityPosY = targetEntity.posY;

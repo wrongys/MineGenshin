@@ -1,10 +1,12 @@
 package minegenshin.wrong.entity.skill.diluc;
 
+import minegenshin.wrong.entity.skill.IMineGenshinEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -14,7 +16,7 @@ import java.util.List;
 import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
 
 
-public class EntityDilucBurst extends EntityLiving {
+public class EntityDilucBurst extends EntityLiving implements IMineGenshinEntity {
 
     public EntityDilucBurst(World worldIn) {
         super(worldIn);
@@ -68,11 +70,21 @@ public class EntityDilucBurst extends EntityLiving {
             this.motionZ = 0.01 * this.motionZ;
         }
 
+        if (world.isRemote) {
+            for (int d = -6; d <= 6; d++) {
+
+                float dx = (float) (d * Math.cos(this.rotationYaw * 0.017453292F));
+                float dz = (float) (-d * Math.sin(this.rotationYaw * 0.017453292F));
+                world.spawnParticle(EnumParticleTypes.FLAME, this.posX + dx + 0.5 - Math.random() * 1, this.posY + 0.5 * Math.random(), this.posZ + dz + 0.5 - Math.random() * 1, 0, 0, 0);
+                world.spawnParticle(EnumParticleTypes.FLAME, this.posX + dx + 0.5 - Math.random() * 1, this.posY + 0.5 * Math.random(), this.posZ + dz + 0.5 - Math.random() * 1, 0, 0, 0);
+
+            }
+        }
+
         if (this.ticksExisted % 2 == 0) {
 
-            AxisAlignedBB aabb = new AxisAlignedBB(this.posX + 6, this.posY + 2, this.posZ + 6,
-                    this.posX - 6, this.posY - 2, this.posZ - 6);
-            List<Entity> entityList = world.getEntitiesWithinAABB(Entity.class, aabb);
+            AxisAlignedBB aabb = new AxisAlignedBB(this.posX + 6, this.posY + 2, this.posZ + 6, this.posX - 6, this.posY - 2, this.posZ - 6);
+            List<EntityLivingBase> entityList = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 
             double x0 = this.posX;
             double z0 = this.posZ;
@@ -82,21 +94,17 @@ public class EntityDilucBurst extends EntityLiving {
             double x2 = x0 - 5.7 * Math.cos(f);
             double z2 = z0 + 5.7 * Math.sin(f);
 
+            for (Entity entity : entityList) {
+                if (!(entity instanceof EntityDilucBurst) && !(entity instanceof EntityPlayer)) {
 
-            for (Entity entity : entityList
-            ) {
-                if (entity instanceof EntityLivingBase && !(entity instanceof EntityDilucBurst) && !(entity instanceof EntityPlayer)) {
-
-                    double l = Math.sqrt((entity.posX - x1) * (entity.posX - x1) + (entity.posZ - z1) * (entity.posZ - z1))
-                            + Math.sqrt((entity.posX - x2) * (entity.posX - x2) + (entity.posZ - z2) * (entity.posZ - z2));
+                    double l = Math.sqrt((entity.posX - x1) * (entity.posX - x1) + (entity.posZ - z1) * (entity.posZ - z1)) + Math.sqrt((entity.posX - x2) * (entity.posX - x2) + (entity.posZ - z2) * (entity.posZ - z2));
 
                     if (l <= 12) {
 
-                        EntityLivingBase entityLiving = (EntityLivingBase) entity;
-                        entityLiving.addVelocity(this.motionX, this.motionY * 0.2, this.motionZ);
+                        entity.addVelocity(this.motionX, this.motionY * 0.2, this.motionZ);
 
                         if (this.ticksExisted % 4 == 0) {
-                            entityLiving.attackEntityFrom(BURST, 5);
+                            entity.attackEntityFrom(BURST, 5);
                         }
 
                     }

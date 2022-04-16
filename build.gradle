@@ -7,6 +7,16 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
+
+//    repositories {
+//        maven {
+//            url "https://maven.cleanroommc.com"
+//        }
+//    }
+//
+//    dependencies {
+//        deobfCompile ("zone.rong:mixinbooter:4.2")
+//    }
 }
 
 apply plugin: 'net.minecraftforge.gradle'

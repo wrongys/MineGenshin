@@ -3,6 +3,9 @@ package minegenshin.wrong.registery;
 
 import minegenshin.wrong.MineGenshin;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle3;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;
 import net.minecraftforge.event.RegistryEvent;
@@ -15,15 +18,22 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber(modid = MineGenshin.MOD_ID)
 public class EntityRegistryHandler {
 
-    public static EntityEntry WENDY_EXPLOSION = EntityEntryBuilder.create().entity(EntityWendyBurst.class).id("wendy_explosion", 0).name(MineGenshin.MOD_ID + "wendy_explosion").tracker(80, 3, true).build();
-    public static EntityEntry WENDY_ATTACK = EntityEntryBuilder.create().entity(EntityWendyAttack.class).id("wendy_attack", 1).name(MineGenshin.MOD_ID + "wendy_attack").tracker(80, 3, true).build();
-    public static EntityEntry DILUC = EntityEntryBuilder.create().entity(EntityDilucBurst.class).id("diluc",2).name(MineGenshin.MOD_ID + "diluc").tracker(80,3,true).build();
+    public static int nextId = 0;
+    public static EntityEntry WENDY_EXPLOSION = EntityEntryBuilder.create().entity(EntityWendyBurst.class).id("wendy_explosion", nextId++).name(MineGenshin.MOD_ID + "wendy_explosion").tracker(80, 3, true).build();
+    public static EntityEntry WENDY_ATTACK = EntityEntryBuilder.create().entity(EntityWendyAttack.class).id("wendy_attack", nextId++).name(MineGenshin.MOD_ID + "wendy_attack").tracker(80, 1, true).build();
+    public static EntityEntry DILUC = EntityEntryBuilder.create().entity(EntityDilucBurst.class).id("diluc", nextId++).name(MineGenshin.MOD_ID + "diluc").tracker(80, 1, true).build();
+    public static EntityEntry DILUC_SKILL1 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle1.class).id("diluc_skill1", nextId++).name(MineGenshin.MOD_ID + "diluc_skill1").tracker(80, 1, true).build();
+    public static EntityEntry DILUC_SKILL2 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle2.class).id("diluc_skill2", nextId++).name(MineGenshin.MOD_ID + "diluc_skill2").tracker(80, 1, true).build();
+    public static EntityEntry DILUC_SKILL3 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle3.class).id("diluc_skill3", nextId++).name(MineGenshin.MOD_ID + "diluc_skill3").tracker(80, 1, true).build();
 
     public static EntityEntry[] Entities = {
 
             WENDY_EXPLOSION,
             WENDY_ATTACK,
-            DILUC
+            DILUC,
+            DILUC_SKILL1,
+            DILUC_SKILL2,
+            DILUC_SKILL3
     };
 
 

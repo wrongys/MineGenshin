@@ -1,6 +1,0 @@
-{
-  "parent": "minegenshin:item/wendy_elegy_for_the_end",
-  "textures": {
-    "layer0": "minegenshin:items/weapon/wendy_elegy_for_the_end_7"
-  }
-}

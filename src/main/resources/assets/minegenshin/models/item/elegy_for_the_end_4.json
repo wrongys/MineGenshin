@@ -1,0 +1,6 @@
+{
+  "parent": "minegenshin:item/elegy_for_the_end",
+  "textures": {
+    "layer0": "minegenshin:items/weapon/elegy_for_the_end_4"
+  }
+}

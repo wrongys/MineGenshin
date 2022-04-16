@@ -1,64 +1,119 @@
 package minegenshin.wrong.item.weapon;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import minegenshin.wrong.EnumSAB;
+import minegenshin.wrong.MineGenshin;
+import minegenshin.wrong.capability.MGWeaponCdCapability;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
+import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle3;
+import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
-import static minegenshin.wrong.init.ParticleInit.ParticleMGSweepPyro;
 
 public class ItemDiluc extends Item implements IMineGenshinWeapon {
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+        return super.onLeftClickEntity(stack, player, entity);
+    }
 
     public ItemDiluc() {
         this.setMaxStackSize(1);
         this.setCreativeTab(wrongCreativeTab);
-
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 
-        if (worldIn.isRemote) {
-            RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
-            Render<AbstractClientPlayer> render = renderManager.getEntityRenderObject(playerIn);
-            RenderPlayer renderPlayer = (RenderPlayer) render;
-
-            renderPlayer.getMainModel().bipedLeftLeg.rotateAngleX = 45 * 0.017453292F;
-            renderPlayer.getMainModel().bipedBody.rotateAngleX = 30 * 0.017453292F;
-        }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return true;
     }
 
 
     @Override
     public void skill(EntityPlayer player, ItemStack stack) {
 
-        SimpleNetworkWrapperLoader.INSTANCE.sendToAllAround(new MessageSABClient(player.getEntityId(), player.getName(), EnumSAB.SKILL), new NetworkRegistry.TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128));
+        ItemDiluc item = (ItemDiluc) stack.getItem();
+        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+
+        if (!capability.hasSkillKey(item)) {
+            capability.setSkillCd(item, 10 * 20);
+            if (!stack.hasTagCompound()) {
+                stack.setTagCompound(new NBTTagCompound());
+            }
+            stack.getTagCompound().setBoolean("skill1", true);
+            stack.getTagCompound().setBoolean("skill2", false);
+            stack.getTagCompound().setBoolean("skill3", false);
+        }
+
+        NBTTagCompound nbt = stack.getTagCompound();
+
+        if (nbt.getBoolean("skill1") && !capability.hasExtraKey(item)) {
+
+            EntityDilucSkillParticle1 entity = new EntityDilucSkillParticle1(player.world, player.posX, player.posY + 1, player.posZ, player.rotationYaw);
+            player.world.spawnEntity(entity);
+
+            nbt.setBoolean("skill1", false);
+            nbt.setBoolean("skill2", true);
+            capability.setExtraCd(item, 10);
+            return;
+        }
+
+        if (nbt.getBoolean("skill2") && !capability.hasExtraKey(item)) {
+
+            EntityDilucSkillParticle2 entity = new EntityDilucSkillParticle2(player.world, player.posX, player.posY + 1, player.posZ, player.rotationYaw);
+            player.world.spawnEntity(entity);
+
+            nbt.setBoolean("skill2", false);
+            nbt.setBoolean("skill3", true);
+            capability.setExtraCd(item, 10);
+            return;
+        }
+
+        if (nbt.getBoolean("skill3") && !capability.hasExtraKey(item)) {
+
+            EntityDilucSkillParticle3 entity = new EntityDilucSkillParticle3(player.world, player.posX, player.posY + 1, player.posZ, player.rotationYaw);
+            player.world.spawnEntity(entity);
+
+            nbt.setBoolean("skill3", false);
+            capability.setExtraCd(item, 10);
+        }
 
     }
 
 
     @Override
     public void burst(EntityPlayer player, ItemStack stack) {
+
+        ItemDiluc item = (ItemDiluc) stack.getItem();
+        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        if (capability.hasBurstKey(item)) return;
 
         AxisAlignedBB aabb = new AxisAlignedBB(player.posX + 3, player.posY + 2, player.posZ + 3,
                 player.posX + 3, player.posY + 2, player.posZ + 3);
@@ -73,30 +128,37 @@ public class ItemDiluc extends Item implements IMineGenshinWeapon {
 
         }
 
-
         EntityDilucBurst entity = new EntityDilucBurst(player.world, player.posX, player.posY + player.eyeHeight, player.posZ);
         entity.shoot(player, 0, player.rotationYaw, 0, 0.75F, 0);
         player.world.spawnEntity(entity);
+
+        capability.setBurstCd(item, 20 * 20);
+
+        SimpleNetworkWrapperLoader.INSTANCE.sendTo(new MessageSABClient(player.getEntityId(), player.getName(), EnumSAB.BURST), (EntityPlayerMP) player);
     }
 
 
     @Override
-    public void skillClient(EntityPlayer player, ItemStack stack) {
-        float dx = -MathHelper.sin(player.rotationYaw * 0.017453292F);
-        float dz = MathHelper.cos(player.rotationYaw * 0.017453292F);
-        float x = (float) (player.posX + 3 * dx);
-        float y = (float) (player.posY + 1);
-        float z = (float) (player.posZ + 3 * dz);
-        player.world.spawnParticle(ParticleMGSweepPyro, x, y, z, 0, 0, 0);
+    public void skillClient(EntityPlayer player) {
     }
 
 
     @Override
-    public void burstClient(EntityPlayer player, ItemStack stack) {
-
-
+    public void burstClient(EntityPlayer player) {
 
     }
 
 
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack) {
+
+        Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+
+        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 19, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3, 0));
+        }
+
+        return multimap;
+    }
 }

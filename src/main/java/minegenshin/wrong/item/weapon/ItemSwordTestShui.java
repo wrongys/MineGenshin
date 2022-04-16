@@ -21,14 +21,12 @@ public class ItemSwordTestShui extends ItemSword {
         super(material);
         this.setRegistryName("shui");
         this.setUnlocalizedName(MOD_ID + "Shui");
+        this.setCreativeTab(null);
     }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if (!target.world.isRemote) {
 
-            Elemental.elementalAttack(attacker, target, Elemental_HYDRO);
-        }
         return super.hitEntity(stack, target, attacker);
     }
 

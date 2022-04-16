@@ -14,7 +14,7 @@ public class CreativeTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemRegistryHandler.WENDY_ELEGY_FOR_THE_END);
+        return new ItemStack(ItemRegistryHandler.ELEGY_FOR_THE_END);
     }
 
 

@@ -4,7 +4,6 @@ import minegenshin.wrong.capability.ElementalCapability;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageElemental;
-import minegenshin.wrong.network.message.MessageSpawnParticle;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
@@ -18,6 +17,7 @@ import static minegenshin.wrong.elemental.ElementalDamageType.Chaozai;
 import static minegenshin.wrong.elemental.ElementalDamageType.Gandian;
 import static minegenshin.wrong.elemental.ElementalType.*;
 
+//元素反应 废案
 public class Elemental {
 
     public static void elementalAttack(@Nullable EntityLivingBase attacker, EntityLivingBase target, DamageSource damageSource) {
@@ -212,7 +212,6 @@ public class Elemental {
             entity.attackEntityFrom(Chaozai, 2);
 
         }
-        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), (float) target.posX, (float) target.posY, (float) target.posZ));
     }
 
     public static void elementalElectroCharged(EntityLivingBase target) {
@@ -230,7 +229,6 @@ public class Elemental {
             entity.attackEntityFrom(Chaozai, 2);
 
         }
-        SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageSpawnParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), (float) target.posX, (float) target.posY, (float) target.posZ));
 
 
     }

@@ -2,6 +2,7 @@ package minegenshin.wrong.entity.skill.wendy;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import minegenshin.wrong.entity.skill.IMineGenshinEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EntityWendyAttack extends EntityThrowable {
+public class EntityWendyAttack extends EntityThrowable implements IMineGenshinEntity {
 
     private static final Predicate<Entity> ARROW_TARGETS = Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.IS_ALIVE, new Predicate<Entity>() {
         public boolean apply(@Nullable Entity p_apply_1_) {
@@ -105,10 +106,6 @@ public class EntityWendyAttack extends EntityThrowable {
                         }
                     }
 
-//                    if (this.shootingEntity instanceof EntityLivingBase) {
-//                        EnchantmentHelper.applyThornEnchantments(entitylivingbase, this.shootingEntity);
-//                        EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase) this.shootingEntity, entitylivingbase);
-//                    }
 
                     if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP) {
                         ((EntityPlayerMP) this.shootingEntity).connection.sendPacket(new SPacketChangeGameState(6, 0.0F));

@@ -25,22 +25,12 @@ public class ItemSwordTestBing extends ItemSword {
         super(material);
         this.setRegistryName("bing");
         this.setUnlocalizedName(MOD_ID + "Bing");
-
-        this.addPropertyOverride(new ResourceLocation("test"), new IItemPropertyGetter() {
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-                return 0.4F;
-            }
-        });
+        this.setCreativeTab(null);
     }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if (!target.world.isRemote) {
 
-            Elemental.elementalAttack(attacker, target, Elemental_CRYO);
-
-        }
 
         return super.hitEntity(stack, target, attacker);
     }
@@ -49,14 +39,9 @@ public class ItemSwordTestBing extends ItemSword {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        if (!worldIn.isRemote) {
-            EntityDilucBurst entity = new EntityDilucBurst(worldIn, playerIn.posX, playerIn.posY + playerIn.eyeHeight, playerIn.posZ);
-            entity.shoot(playerIn,0,playerIn.rotationYaw,0,0.5F,0);
-            worldIn.spawnEntity(entity);
-        }
+
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
-
 
 }

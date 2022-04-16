@@ -19,6 +19,8 @@ public class ItemSwordTestLei extends ItemSword {
         super(material);
         this.setRegistryName("lei");
         this.setUnlocalizedName(MOD_ID + "Lei");
+        this.setCreativeTab(null);
+
 
     }
 
@@ -26,26 +28,12 @@ public class ItemSwordTestLei extends ItemSword {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
 
-        if (worldIn.isRemote) {
-
-            float x = -MathHelper.sin(playerIn.rotationYaw * 0.017453292F);
-            float z = MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
-            worldIn.spawnParticle(ParticleInit.getMGParticle(50), playerIn.posX + 3 * x, playerIn.posY + 1, playerIn.posZ + 3 * z, 0, 0, 0);
-
-        }
-
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if (!target.world.isRemote) {
-
-
-            Elemental.elementalAttack(attacker, target, Elemental_ELECTRO);
-
-        }
 
         return super.hitEntity(stack, target, attacker);
     }

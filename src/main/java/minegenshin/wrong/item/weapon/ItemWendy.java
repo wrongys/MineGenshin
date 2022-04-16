@@ -1,5 +1,7 @@
 package minegenshin.wrong.item.weapon;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import minegenshin.wrong.EnumSAB;
 import minegenshin.wrong.MineGenshin;
 import minegenshin.wrong.capability.MGWeaponCdCapability;
@@ -8,10 +10,13 @@ import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
@@ -153,32 +158,45 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
 
     @Override
     public void skill(EntityPlayer player, ItemStack stack) {
+
         ItemWendy item = (ItemWendy) stack.getItem();
         MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasSkillKey(item)) return;
+
         capability.setSkillCd(item, 10 * 20);
-        SimpleNetworkWrapperLoader.INSTANCE.sendTo(new MessageSABClient(player.getEntityId(), player.getName(), EnumSAB.SKILL), (EntityPlayerMP) player);
+        SimpleNetworkWrapperLoader.INSTANCE.sendTo(new MessageSABClient(player.getEntityId(), this.getRegistryName().toString(), EnumSAB.SKILL), (EntityPlayerMP) player);
     }
 
     @Override
     public void burst(EntityPlayer player, ItemStack itemStack) {
+
         ItemWendy item = (ItemWendy) itemStack.getItem();
         MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasBurstKey(item)) return;
         if (item.hasNBTTagCompoundValue(itemStack, "burst") == true) return;
+
         setNBTTagCompound(itemStack, "burst", true);
     }
 
     @Override
-    public void skillClient(EntityPlayer player, ItemStack stack) {
+    public void skillClient(EntityPlayer player) {
         player.motionY = 1.2;
     }
 
     @Override
-    public void burstClient(EntityPlayer player, ItemStack stack) {
-
-
+    public void burstClient(EntityPlayer player) {
     }
+
+//    @Override
+//    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
+//        Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+//
+//        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+//            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 9, 0));
+//        }
+//
+//        return multimap;
+//    }
 
     public void setNBTTagCompound(ItemStack itemStack, String key, Boolean value) {
 
