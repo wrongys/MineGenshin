@@ -1,6 +1,6 @@
 package minegenshin.wrong.init;
 import minegenshin.wrong.capability.ElementalCapability;
-import minegenshin.wrong.capability.MGWeaponCdCapability;
+import minegenshin.wrong.capability.MGCapability;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -12,8 +12,8 @@ public class CapabilityInit {
     @CapabilityInject(ElementalCapability.class)
     public static net.minecraftforge.common.capabilities.Capability<ElementalCapability> ELEMENTAL;
 
-    @CapabilityInject(MGWeaponCdCapability.class)
-    public static net.minecraftforge.common.capabilities.Capability<MGWeaponCdCapability> MGWEAPON;
+    @CapabilityInject(MGCapability.class)
+    public static net.minecraftforge.common.capabilities.Capability<MGCapability> MGWEAPON;
 
 
     public static void init() {
@@ -34,20 +34,20 @@ public class CapabilityInit {
         }, ElementalCapability::new);
 
 
-        CapabilityManager.INSTANCE.register(MGWeaponCdCapability.class, new net.minecraftforge.common.capabilities.Capability.IStorage<MGWeaponCdCapability>() {
+        CapabilityManager.INSTANCE.register(MGCapability.class, new net.minecraftforge.common.capabilities.Capability.IStorage<MGCapability>() {
             @Override
-            public NBTBase writeNBT(net.minecraftforge.common.capabilities.Capability<MGWeaponCdCapability> cap, MGWeaponCdCapability instance, EnumFacing side) {
+            public NBTBase writeNBT(net.minecraftforge.common.capabilities.Capability<MGCapability> cap, MGCapability instance, EnumFacing side) {
 
                 return instance.serializeNBT();
 
             }
 
             @Override
-            public void readNBT(net.minecraftforge.common.capabilities.Capability<MGWeaponCdCapability> cap, MGWeaponCdCapability instance, EnumFacing side, NBTBase nbt) {
+            public void readNBT(net.minecraftforge.common.capabilities.Capability<MGCapability> cap, MGCapability instance, EnumFacing side, NBTBase nbt) {
                 if (nbt instanceof NBTTagCompound) {
                     instance.deserializeNBT((NBTTagCompound) nbt);
                 }
             }
-        }, MGWeaponCdCapability::new);
+        }, MGCapability::new);
     }
 }

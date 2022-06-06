@@ -17,13 +17,13 @@ import javax.annotation.Nullable;
 
 import static minegenshin.wrong.MineGenshin.MOD_ID;
 
-public class MGWeaponCdProvider implements ICapabilitySerializable<NBTTagCompound> {
+public class MGProvider implements ICapabilitySerializable<NBTTagCompound> {
 
-    private final MGWeaponCdCapability instance;
-    private final Capability<MGWeaponCdCapability> capability;
+    private final MGCapability instance;
+    private final Capability<MGCapability> capability;
 
-    public MGWeaponCdProvider() {
-        this.instance = new MGWeaponCdCapability();
+    public MGProvider() {
+        this.instance = new MGCapability();
         this.capability = CapabilityInit.MGWEAPON;
     }
 
@@ -55,7 +55,7 @@ class OnAttachCapabilitiesMGWeaponCd {
     @SubscribeEvent
     public static void onAttachCapabilitiesMGWeaponCd(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
-            MGWeaponCdProvider mgweapon = new MGWeaponCdProvider();
+            MGProvider mgweapon = new MGProvider();
             event.addCapability(new ResourceLocation(MOD_ID + ":mgweapon"), mgweapon);
         }
     }

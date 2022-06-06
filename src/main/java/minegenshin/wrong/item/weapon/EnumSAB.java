@@ -1,4 +1,4 @@
-package minegenshin.wrong;
+package minegenshin.wrong.item.weapon;
 
 public enum EnumSAB {
     SKILL,

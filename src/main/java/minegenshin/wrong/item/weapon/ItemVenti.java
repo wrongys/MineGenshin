@@ -1,22 +1,16 @@
 package minegenshin.wrong.item.weapon;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import minegenshin.wrong.EnumSAB;
-import minegenshin.wrong.MineGenshin;
-import minegenshin.wrong.capability.MGWeaponCdCapability;
+import minegenshin.wrong.capability.MGCapability;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
@@ -25,9 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -35,8 +26,8 @@ import javax.annotation.Nullable;
 
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 
-public class ItemWendy extends Item implements IMineGenshinWeapon {
-    public ItemWendy() {
+public class ItemVenti extends Item implements IMineGenshinWeapon {
+    public ItemVenti() {
 
         this.setMaxStackSize(1);
         this.setCreativeTab(wrongCreativeTab);
@@ -46,7 +37,7 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return !(entityIn.getActiveItemStack().getItem() instanceof ItemWendy) ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                    return !(entityIn.getActiveItemStack().getItem() instanceof ItemVenti) ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
 
                 }
             }
@@ -64,7 +55,7 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return !(entityIn.getActiveItemStack().getItem() instanceof ItemWendy) ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount() - 5) / 20.0F;
+                    return !(entityIn.getActiveItemStack().getItem() instanceof ItemVenti) ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount() - 5) / 20.0F;
 
                 }
             }
@@ -157,10 +148,27 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
 
 
     @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+
+        if (entityIn instanceof EntityPlayer && entityIn.motionY < -0.3) {
+
+            EntityPlayer player = (EntityPlayer) entityIn;
+            ItemStack stack1 = player.getHeldItemMainhand();
+
+            if (stack1 != null && stack1 == stack && !player.isInWater()) {
+                player.motionY = -0.3;
+                player.fallDistance = 0;
+            }
+        }
+
+    }
+
+    @Override
     public void skill(EntityPlayer player, ItemStack stack) {
 
-        ItemWendy item = (ItemWendy) stack.getItem();
-        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        ItemVenti item = (ItemVenti) stack.getItem();
+        MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasSkillKey(item)) return;
 
         capability.setSkillCd(item, 10 * 20);
@@ -170,8 +178,8 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
     @Override
     public void burst(EntityPlayer player, ItemStack itemStack) {
 
-        ItemWendy item = (ItemWendy) itemStack.getItem();
-        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        ItemVenti item = (ItemVenti) itemStack.getItem();
+        MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasBurstKey(item)) return;
         if (item.hasNBTTagCompoundValue(itemStack, "burst") == true) return;
 
@@ -220,24 +228,6 @@ public class ItemWendy extends Item implements IMineGenshinWeapon {
             itemStack.setTagCompound(nbt);
         }
         return itemStack.getTagCompound().getBoolean(key);
-    }
-
-}
-
-@Mod.EventBusSubscriber(modid = MineGenshin.MOD_ID)
-class SlowFall {
-
-    @SubscribeEvent
-    public static void onPlayerFall(LivingEvent.LivingUpdateEvent event) {
-        EntityLivingBase entity = event.getEntityLiving();
-        if (entity instanceof EntityPlayer && entity.motionY < -0.3) {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack stack = player.getHeldItemMainhand();
-            if (stack != null && stack.getItem() instanceof ItemWendy && !player.isInWater()) {
-                player.motionY = -0.3;
-                player.fallDistance = 0;
-            }
-        }
     }
 
 }

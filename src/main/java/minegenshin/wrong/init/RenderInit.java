@@ -16,13 +16,12 @@ import net.minecraft.client.Minecraft;
 
 public class RenderInit {
 
-    public static void init(){
+    public static void init() {
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityWendyBurst.class, new RenderWendyBurst(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityWendyAttack.class, new RenderWendyAttack(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucBurst.class, new RenderDilucBurst(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle1.class, new RenderDilucBurst1(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle2.class, new RenderDilucBurst2(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle3.class, new RenderDilucBurst3(Minecraft.getMinecraft().getRenderManager()));
-
     }
 }

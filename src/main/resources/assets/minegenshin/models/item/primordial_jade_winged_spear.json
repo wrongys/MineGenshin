@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "minegenshin:items/weapon/primordial_jade_winged_spear"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -90, 45],
+			"translation": [-0.5, 2, 1.5],
+			"scale": [2, 2, 1]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, -45],
+			"translation": [0.5, 2, 1.5],
+			"scale": [2, 2, 1]
+		},
+		"firstperson_righthand": {
+			"rotation": [-45, -90, 0],
+			"translation": [2.5, 1.5, -2],
+			"scale": [1.5, 1.5, 1]
+		},
+		"firstperson_lefthand": {
+			"rotation": [135, 90, -180],
+			"translation": [2.5, 1.5, -2],
+			"scale": [1.5, 1.5, 1]
+		},
+		"ground": {
+			"translation": [0, 7, 0],
+			"scale": [1.3, 1.3, 1]
+		}
+	}
+}

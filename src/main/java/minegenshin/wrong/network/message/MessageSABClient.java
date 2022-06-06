@@ -1,7 +1,7 @@
 package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
-import minegenshin.wrong.EnumSAB;
+import minegenshin.wrong.item.weapon.EnumSAB;
 import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,8 +15,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import java.util.HashMap;
 import java.util.Map;
 
-import static minegenshin.wrong.registery.ItemRegistryHandler.ELEGY_FOR_THE_END;
-import static minegenshin.wrong.registery.ItemRegistryHandler.WOLF_GRAVESTONE;
+import static minegenshin.wrong.registery.ItemRegistryHandler.*;
+
 
 public class MessageSABClient implements IMessage {
 
@@ -85,6 +85,7 @@ public class MessageSABClient implements IMessage {
     public static void Init() {
         CLIENTSAB.put(ELEGY_FOR_THE_END.getRegistryName().toString(), ELEGY_FOR_THE_END);
         CLIENTSAB.put(WOLF_GRAVESTONE.getRegistryName().toString(), WOLF_GRAVESTONE);
+        CLIENTSAB.put(PRIMORDIAL_JADE_WINGED_SPEAR.getRegistryName().toString(), PRIMORDIAL_JADE_WINGED_SPEAR);
     }
 
 }

@@ -1,6 +1,6 @@
 package minegenshin.wrong.item.weapon;
 
-import minegenshin.wrong.elemental.attack.Elemental;
+import minegenshin.wrong.init.ParticleInit;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,8 +11,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 import static minegenshin.wrong.MineGenshin.MOD_ID;
-import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
-import static minegenshin.wrong.elemental.ElementalDamageType.Elemental_HYDRO;
 
 public class ItemSwordTestShui extends ItemSword {
 
@@ -33,6 +31,9 @@ public class ItemSwordTestShui extends ItemSword {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
+        if (worldIn.isRemote) {
+            worldIn.spawnParticle(ParticleInit.XIAO_BURST, playerIn.posX + 2, playerIn.posY, playerIn.posZ + 2, 0, 0, 0);
+        }
 
         return ActionResult.newResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 

@@ -9,11 +9,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
+public class MGCapability implements INBTSerializable<NBTTagCompound> {
 
     private final Map<IMineGenshinWeapon, Integer> cooldowns_skill = Maps.<IMineGenshinWeapon, Integer>newHashMap();
     private final Map<IMineGenshinWeapon, Integer> cooldowns_burst = Maps.<IMineGenshinWeapon, Integer>newHashMap();
     private final Map<IMineGenshinWeapon, Integer> cooldowns_extra = Maps.<IMineGenshinWeapon, Integer>newHashMap();
+    private final Map<EnumSABState, Integer> mg_state = Maps.<EnumSABState, Integer>newHashMap();
 
     public int getSkillCd(IMineGenshinWeapon item) {
         return cooldowns_skill.get(item);
@@ -25,6 +26,10 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
 
     public int getExtraCd(IMineGenshinWeapon item) {
         return cooldowns_extra.get(item);
+    }
+
+    public int getMGState(EnumSABState state) {
+        return mg_state.get(state);
     }
 
 
@@ -40,6 +45,9 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         cooldowns_extra.put(item, cd);
     }
 
+    public void setMGState(EnumSABState state, int cd) {
+        mg_state.put(state, cd);
+    }
 
     public boolean hasSkillKey(IMineGenshinWeapon item) {
         return cooldowns_skill.containsKey(item);
@@ -49,7 +57,17 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         return cooldowns_burst.containsKey(item);
     }
 
-    public boolean hasExtraKey(IMineGenshinWeapon item) { return cooldowns_extra.containsKey(item); }
+    public boolean hasExtraKey(IMineGenshinWeapon item) {
+        return cooldowns_extra.containsKey(item);
+    }
+
+    public boolean hasMGState(EnumSABState state) {
+        return mg_state.containsKey(state);
+    }
+
+    public void removeMGState(EnumSABState state) {
+        mg_state.remove(state);
+    }
 
     public void tick() {
 
@@ -64,7 +82,7 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
                 this.setSkillCd(next, cd - 1);
             }
 
-            if (this.getSkillCd(next) == 0) {
+            if (this.getSkillCd(next) <= 0) {
                 it_skill.remove();
             }
 
@@ -81,7 +99,7 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
                 this.setBurstCd(next, cd - 1);
             }
 
-            if (this.getBurstCd(next) == 0) {
+            if (this.getBurstCd(next) <= 0) {
                 it_burst.remove();
             }
 
@@ -98,12 +116,28 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
                 this.setExtraCd(next, cd - 1);
             }
 
-            if (this.getExtraCd(next) == 0) {
+            if (this.getExtraCd(next) <= 0) {
                 it_extra.remove();
             }
 
         }
 
+        Iterator it_mgState = mg_state.keySet().iterator();
+
+        while (it_mgState.hasNext()) {
+
+            EnumSABState next = (EnumSABState) it_mgState.next();
+            int cd = this.getMGState(next);
+
+            if (cd >= 1) {
+                this.setMGState(next, cd - 1);
+            }
+
+            if (this.getMGState(next) == 0 || this.getMGState(next) < -1) {
+                it_mgState.remove();
+            }
+
+        }
     }
 
     @Override
@@ -152,6 +186,12 @@ public class MGWeaponCdCapability implements INBTSerializable<NBTTagCompound> {
         ) {
             cooldowns_extra.put(set, nbt.getInteger(set.toString()));
         }
+
+    }
+
+    public enum EnumSABState {
+        XIAO_EXPLOSION,
+        PLUNGE_ATTACK
 
     }
 }

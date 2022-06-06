@@ -2,9 +2,7 @@ package minegenshin.wrong.item.weapon;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import minegenshin.wrong.EnumSAB;
-import minegenshin.wrong.MineGenshin;
-import minegenshin.wrong.capability.MGWeaponCdCapability;
+import minegenshin.wrong.capability.MGCapability;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
@@ -12,26 +10,17 @@ import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle3;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
@@ -39,10 +28,6 @@ import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 
 public class ItemDiluc extends Item implements IMineGenshinWeapon {
 
-    @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-        return super.onLeftClickEntity(stack, player, entity);
-    }
 
     public ItemDiluc() {
         this.setMaxStackSize(1);
@@ -60,7 +45,7 @@ public class ItemDiluc extends Item implements IMineGenshinWeapon {
     public void skill(EntityPlayer player, ItemStack stack) {
 
         ItemDiluc item = (ItemDiluc) stack.getItem();
-        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
 
         if (!capability.hasSkillKey(item)) {
             capability.setSkillCd(item, 10 * 20);
@@ -112,7 +97,7 @@ public class ItemDiluc extends Item implements IMineGenshinWeapon {
     public void burst(EntityPlayer player, ItemStack stack) {
 
         ItemDiluc item = (ItemDiluc) stack.getItem();
-        MGWeaponCdCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
+        MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
         if (capability.hasBurstKey(item)) return;
 
         AxisAlignedBB aabb = new AxisAlignedBB(player.posX + 3, player.posY + 2, player.posZ + 3,

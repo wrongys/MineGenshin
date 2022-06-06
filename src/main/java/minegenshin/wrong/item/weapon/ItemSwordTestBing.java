@@ -1,24 +1,14 @@
 package minegenshin.wrong.item.weapon;
 
-import minegenshin.wrong.elemental.attack.Elemental;
-import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
 
 import static minegenshin.wrong.MineGenshin.MOD_ID;
-import static minegenshin.wrong.elemental.ElementalDamageType.Elemental_CRYO;
 
 public class ItemSwordTestBing extends ItemSword {
     public ItemSwordTestBing(ToolMaterial material) {
@@ -40,6 +30,19 @@ public class ItemSwordTestBing extends ItemSword {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
 
+        if (!worldIn.isRemote) {
+//            EntityGeoTest geoTest = new EntityGeoTest(worldIn);
+//            GeoExampleEntity x = new GeoExampleEntity(worldIn);
+//
+//            geoTest.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
+//            x.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
+//            worldIn.spawnEntity(geoTest);
+//            worldIn.spawnEntity(x);
+        }
+        if (worldIn.isRemote) {
+
+
+        }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

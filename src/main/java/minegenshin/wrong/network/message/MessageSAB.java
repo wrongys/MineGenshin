@@ -1,7 +1,7 @@
 package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
-import minegenshin.wrong.EnumSAB;
+import minegenshin.wrong.item.weapon.EnumSAB;
 import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
