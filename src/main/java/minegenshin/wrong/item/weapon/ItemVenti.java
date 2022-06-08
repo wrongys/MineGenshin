@@ -103,7 +103,7 @@ public class ItemVenti extends Item implements IMineGenshinWeapon {
                         setNBTTagCompound(stack, "burst", false);
                         entityplayer.getCapability(CapabilityInit.MGWEAPON, null).setBurstCd((IMineGenshinWeapon) stack.getItem(), 15 * 20);
                     }
-                    entityWendyAttack.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 0.5F);
+                    entityWendyAttack.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 2.5F, 0.5F);
                     worldIn.spawnEntity(entityWendyAttack);
 
                 }

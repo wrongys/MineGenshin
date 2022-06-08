@@ -19,21 +19,24 @@ public class HUDRender {
     public static final ResourceLocation MGBUFF_STATE = new ResourceLocation("minegenshin:textures/skill/state/state.png");
 
     @SubscribeEvent
-    public void render(RenderGameOverlayEvent.Pre event) {
+    public void render(RenderGameOverlayEvent.Post event) {
 
-        Minecraft mc = Minecraft.getMinecraft();
-        Entity entity = mc.getRenderViewEntity();
+        if (RenderGameOverlayEvent.ElementType.ALL.equals(event.getType())) {
+            Minecraft mc = Minecraft.getMinecraft();
+            Entity entity = mc.getRenderViewEntity();
 
-        if (entity instanceof EntityPlayer) {
-            MGCapability capability = entity.getCapability(CapabilityInit.MGWEAPON, null);
+            if (entity instanceof EntityPlayer) {
+                MGCapability capability = entity.getCapability(CapabilityInit.MGWEAPON, null);
 
-            ScaledResolution resolution = event.getResolution();
-            GlStateManager.enableBlend();
-            mc.getRenderManager().renderEngine.bindTexture(MGBUFF_STATE);
+                ScaledResolution resolution = event.getResolution();
+                GlStateManager.enableBlend();
+                mc.getRenderManager().renderEngine.bindTexture(MGBUFF_STATE);
 
-            if (capability.hasMGState(MGCapability.EnumSABState.XIAO_EXPLOSION)) {
-                mc.ingameGUI.drawTexturedModalRect(resolution.getScaledWidth() - 28, 50, 225, 225, 32, 32);
-                mc.ingameGUI.drawTexturedModalRect(resolution.getScaledWidth() - 28, 50, 1, 1, 32, 32);
+                if (capability.hasMGState(MGCapability.EnumSABState.XIAO_EXPLOSION)) {
+                    mc.ingameGUI.drawTexturedModalRect(resolution.getScaledWidth() - 28, 50, 225, 225, 32, 32);
+                    mc.ingameGUI.drawTexturedModalRect(resolution.getScaledWidth() - 28, 50, 1, 1, 32, 32);
+                }
+
             }
         }
     }

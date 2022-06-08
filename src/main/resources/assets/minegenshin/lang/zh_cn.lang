@@ -1,3 +1,7 @@
 itemGroup.minegenshin=我的原神
-item.minegenshin.Venti_ElegyForTheEnd.name=终末嗟叹之诗
-item.minegenshin.Diluc_WolfGravestone.name=狼的末路
+item.minegenshin.Venti_ElegyForTheEnd.name=§6终末嗟叹之诗
+item.minegenshin.Diluc_WolfGravestone.name=§6狼的末路
+item.minegenshin.Xiao_PrimordialJadeWingedSpear.name=§6和璞鸢
+
+item.minegenshin.SweetMadame.name=甜甜花酿鸡
+minegenshin.tooltip.item.venti=欸嘿~

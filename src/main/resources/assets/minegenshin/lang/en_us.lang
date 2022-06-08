@@ -1,3 +1,7 @@
 itemGroup.minegenshin=MineGenShin
-item.minegenshin.Venti_ElegyForTheEnd.name=Elegy For The End
-item.minegenshin.Diluc_WolfGravestone.name=Wolf's GraveStone
+item.minegenshin.Venti_ElegyForTheEnd.name=§6Elegy For The End
+item.minegenshin.Diluc_WolfGravestone.name=§6Wolf's GraveStone
+item.minegenshin.Xiao_PrimordialJadeWingedSpear.name=§6Primordial Jade Winged-Spear
+
+item.minegenshin.SweetMadame.name=Sweet Madame
+minegenshin.tooltip.item.venti=Eihei~
