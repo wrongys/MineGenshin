@@ -2,6 +2,7 @@ package minegenshin.wrong.init;
 
 import minegenshin.wrong.event.HUDRender;
 import minegenshin.wrong.event.KeySAB;
+import minegenshin.wrong.event.RenderHAE;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientEventInit {

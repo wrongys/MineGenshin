@@ -2,6 +2,7 @@ package minegenshin.wrong.item.weapon;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import minegenshin.wrong.capability.MGCapability;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;

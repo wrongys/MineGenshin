@@ -1,4 +1,4 @@
-package minegenshin.wrong.client.render.skill.NoContentRender;
+package minegenshin.wrong.client.renderer.skill.NoContentRender;
 
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
 import net.minecraft.client.renderer.entity.Render;

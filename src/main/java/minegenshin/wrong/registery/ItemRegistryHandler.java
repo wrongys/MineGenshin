@@ -21,6 +21,7 @@ public class ItemRegistryHandler {
     public static final Item ELEGY_FOR_THE_END = new ItemVenti().setRegistryName("elegy_for_the_end").setUnlocalizedName(MineGenshin.MOD_ID + ".Venti_ElegyForTheEnd");
     public static final Item WOLF_GRAVESTONE = new ItemDiluc().setRegistryName("wolf_gravestone").setUnlocalizedName(MineGenshin.MOD_ID + ".Diluc_WolfGravestone");
     public static final Item PRIMORDIAL_JADE_WINGED_SPEAR = new ItemXiao().setRegistryName("primordial_jade_winged_spear").setUnlocalizedName(MineGenshin.MOD_ID + ".Xiao_PrimordialJadeWingedSpear");
+    public static final Item MEMORY_OF_DUST = new ItemNingGuang().setRegistryName("memory_of_dust").setUnlocalizedName(MineGenshin.MOD_ID+".NingGuang_MemoryOfDust");
 
     public static final Item SWEET_MADAME = new ItemSweetMadame(6, 0.6F, true).setRegistryName("sweet_madame").setUnlocalizedName(MineGenshin.MOD_ID + ".SweetMadame");
 
@@ -32,7 +33,8 @@ public class ItemRegistryHandler {
             ELEGY_FOR_THE_END,
             WOLF_GRAVESTONE,
             PRIMORDIAL_JADE_WINGED_SPEAR,
-            SWEET_MADAME
+            SWEET_MADAME,
+            MEMORY_OF_DUST
     };
 
     @SubscribeEvent

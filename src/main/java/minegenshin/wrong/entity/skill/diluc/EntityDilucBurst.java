@@ -1,6 +1,6 @@
 package minegenshin.wrong.entity.skill.diluc;
 
-import minegenshin.wrong.entity.skill.IMineGenshinEntity;
+import minegenshin.wrong.api.IMineGenshinEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
+import static minegenshin.wrong.api.IMineGenshinWeapon.BURST;
 
 
 public class EntityDilucBurst extends EntityLiving implements IMineGenshinEntity {
@@ -73,7 +73,7 @@ public class EntityDilucBurst extends EntityLiving implements IMineGenshinEntity
         if (world.isRemote) {
             for (int d = -6; d <= 6; d++) {
 
-                float dx = (float) (d * Math.cos(this.rotationYaw * 0.017453292F));
+                float dx = (float) ( d * Math.cos(this.rotationYaw * 0.017453292F));
                 float dz = (float) (-d * Math.sin(this.rotationYaw * 0.017453292F));
                 world.spawnParticle(EnumParticleTypes.FLAME, this.posX + dx + 0.5 - Math.random() * 1, this.posY + 0.5 * Math.random(), this.posZ + dz + 0.5 - Math.random() * 1, 0, 0, 0);
                 world.spawnParticle(EnumParticleTypes.FLAME, this.posX + dx + 0.5 - Math.random() * 1, this.posY + 0.5 * Math.random(), this.posZ + dz + 0.5 - Math.random() * 1, 0, 0, 0);

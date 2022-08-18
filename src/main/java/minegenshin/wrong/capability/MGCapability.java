@@ -1,7 +1,7 @@
 package minegenshin.wrong.capability;
 
 import com.google.common.collect.Maps;
-import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -163,12 +163,18 @@ public class MGCapability implements INBTSerializable<NBTTagCompound> {
             nbt.setInteger(set.toString(), cooldowns_extra.get(set));
         }
 
+        Set<EnumSABState> sets_state = mg_state.keySet();
+        for (EnumSABState set : sets_state
+        ) {
+            nbt.setInteger(set.toString(), mg_state.get(set));
+        }
 
         return nbt;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
+
         Set<IMineGenshinWeapon> sets_skill = cooldowns_skill.keySet();
         for (IMineGenshinWeapon set : sets_skill
         ) {
@@ -185,6 +191,12 @@ public class MGCapability implements INBTSerializable<NBTTagCompound> {
         for (IMineGenshinWeapon set : sets_extra
         ) {
             cooldowns_extra.put(set, nbt.getInteger(set.toString()));
+        }
+
+        Set<EnumSABState> set_state = mg_state.keySet();
+        for (EnumSABState set : set_state
+        ) {
+            mg_state.put(set, nbt.getInteger(set.toString()));
         }
 
     }

@@ -2,7 +2,7 @@ package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
 import minegenshin.wrong.item.weapon.EnumSAB;
-import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -52,8 +52,7 @@ public class MessageSABClient implements IMessage {
     }
 
 
-    //作用于自己 sentTo
-    //作用于所有 sentToAll
+
     public static class Handler implements IMessageHandler<MessageSABClient, IMessage> {
         @Override
         public IMessage onMessage(MessageSABClient message, MessageContext ctx) {

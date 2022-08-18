@@ -1,6 +1,6 @@
 package minegenshin.wrong.init;
 
-import minegenshin.wrong.client.render.particle.ParticleXiaoBurst;
+import minegenshin.wrong.client.particle.ParticleXiaoBurst;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.common.util.EnumHelper;

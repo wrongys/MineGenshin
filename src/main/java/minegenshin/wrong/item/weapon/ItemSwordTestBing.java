@@ -1,5 +1,6 @@
 package minegenshin.wrong.item.weapon;
 
+import minegenshin.wrong.entity.EntityNingGuangA;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,17 +32,9 @@ public class ItemSwordTestBing extends ItemSword {
 
 
         if (!worldIn.isRemote) {
-//            EntityGeoTest geoTest = new EntityGeoTest(worldIn);
-//            GeoExampleEntity x = new GeoExampleEntity(worldIn);
-//
-//            geoTest.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
-//            x.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
-//            worldIn.spawnEntity(geoTest);
-//            worldIn.spawnEntity(x);
-        }
-        if (worldIn.isRemote) {
-
-
+            EntityNingGuangA entity = new EntityNingGuangA(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, playerIn);
+            entity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0, 2, 0);
+            worldIn.spawnEntity(entity);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

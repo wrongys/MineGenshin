@@ -1,11 +1,11 @@
 package minegenshin.wrong.init;
 
-import minegenshin.wrong.client.render.skill.NoContentRender.RenderDilucBurst1;
-import minegenshin.wrong.client.render.skill.NoContentRender.RenderDilucBurst2;
-import minegenshin.wrong.client.render.skill.NoContentRender.RenderDilucBurst3;
-import minegenshin.wrong.client.render.skill.RenderDilucBurst;
-import minegenshin.wrong.client.render.skill.RenderWendyAttack;
-import minegenshin.wrong.client.render.skill.RenderWendyBurst;
+import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst1;
+import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst2;
+import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst3;
+import minegenshin.wrong.client.renderer.skill.RenderDilucBurst;
+import minegenshin.wrong.client.renderer.skill.RenderWendyAttack;
+import minegenshin.wrong.client.renderer.skill.RenderWendyBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;

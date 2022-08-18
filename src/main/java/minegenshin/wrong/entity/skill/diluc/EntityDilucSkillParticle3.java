@@ -1,6 +1,6 @@
 package minegenshin.wrong.entity.skill.diluc;
 
-import minegenshin.wrong.entity.skill.IMineGenshinEntity;
+import minegenshin.wrong.api.IMineGenshinEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.SKILL;
+import static minegenshin.wrong.api.IMineGenshinWeapon.SKILL;
 
 public class EntityDilucSkillParticle3 extends Entity {
     public EntityDilucSkillParticle3(World worldIn) {

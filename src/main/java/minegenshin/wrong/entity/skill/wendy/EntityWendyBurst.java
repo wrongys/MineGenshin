@@ -1,6 +1,6 @@
 package minegenshin.wrong.entity.skill.wendy;
 
-import minegenshin.wrong.entity.skill.IMineGenshinEntity;
+import minegenshin.wrong.api.IMineGenshinEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static minegenshin.wrong.item.weapon.IMineGenshinWeapon.BURST;
+import static minegenshin.wrong.api.IMineGenshinWeapon.BURST;
 
 
 public class EntityWendyBurst extends Entity implements IMineGenshinEntity {

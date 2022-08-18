@@ -24,16 +24,15 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.Set;
 
-//渲染血条和元素显示
 @SideOnly(Side.CLIENT)
 public class RenderHAE {
 
-    private static final ResourceLocation HEALTH_BAR = new ResourceLocation("minegenshin:textures/entitybasic/health_bar.png");//血条
+    private static final ResourceLocation HEALTH_BAR = new ResourceLocation("minegenshin:textures/entitybasic/health_bar.png");
 
-    private static final ResourceLocation PYRO = new ResourceLocation("minegenshin:textures/elemental/pyro.png");//火
-    private static final ResourceLocation HYDRO = new ResourceLocation("minegenshin:textures/elemental/hydro.png");//水
-    private static final ResourceLocation ELECTRO = new ResourceLocation("minegenshin:textures/elemental/electro.png");//雷
-    private static final ResourceLocation CYRO = new ResourceLocation("minegenshin:textures/elemental/cyro.png");//冰
+    private static final ResourceLocation PYRO = new ResourceLocation("minegenshin:textures/elemental/pyro.png");
+    private static final ResourceLocation HYDRO = new ResourceLocation("minegenshin:textures/elemental/hydro.png");
+    private static final ResourceLocation ELECTRO = new ResourceLocation("minegenshin:textures/elemental/electro.png");
+    private static final ResourceLocation CYRO = new ResourceLocation("minegenshin:textures/elemental/cyro.png");
 
 
     @SubscribeEvent
@@ -97,7 +96,6 @@ public class RenderHAE {
 
             Tessellator tes = Tessellator.getInstance();
 
-            //背景
             tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             tes.getBuffer().pos(0, 0.05, -0.32).tex(0, 0).endVertex();
             tes.getBuffer().pos(0, 0, -0.32).tex(0, 0.5).endVertex();
@@ -105,7 +103,6 @@ public class RenderHAE {
             tes.getBuffer().pos(0, 0.05, 0.32).tex(1, 0).endVertex();
             tes.draw();
 
-            //血条
             float p = entityLivingBase.getHealth() / entityLivingBase.getMaxHealth();
             tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             tes.getBuffer().pos(0, 0.05, -0.32).tex(0, 0.5).endVertex();

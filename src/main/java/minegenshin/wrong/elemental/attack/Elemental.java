@@ -62,21 +62,21 @@ public class Elemental {
 
 
             } else if (damageType.equals(HYDRO)) {
-                if (attachType.equals(NULL) || attachType.equals(HYDRO)) {//水
+                if (attachType.equals(NULL) || attachType.equals(HYDRO)) {
 
                     elementalAttach(target, elementalCapability, damageSource);
                     target.attackEntityFrom(damageSource, damage);
 
-                } else if (attachType.equals(PYRO)) {//蒸发
+                } else if (attachType.equals(PYRO)) {
 
                     elementalRemove(target, elementalCapability, damageSource);
                     target.attackEntityFrom(damageSource, damage * 3);
 
-                } else if (attachType.equals(CRYO)) {//冻结
+                } else if (attachType.equals(CRYO)) {
 
-                    //冻结
 
-                } else if (attachType.equals(ELECTRO)) {//感电
+
+                } else if (attachType.equals(ELECTRO)) {
 
                     elementalRemove(target, elementalCapability, damageSource);
                     target.attackEntityFrom(Gandian, 2);
@@ -84,28 +84,28 @@ public class Elemental {
                 }
 
 
-            } else if (damageType.equals(PYRO)) {//火
+            } else if (damageType.equals(PYRO)) {
                 if (attachType.equals(NULL) || attachType.equals(PYRO)) {
 
                     elementalAttach(target, elementalCapability, damageSource);
                     target.attackEntityFrom(damageSource, damage);
 
-                } else if (attachType.equals(HYDRO)) {//蒸发
+                } else if (attachType.equals(HYDRO)) {
 
                     elementalRemove(target, elementalCapability, damageSource);
                     target.attackEntityFrom(damageSource, damage * 2);
 
-                } else if (attachType.equals(CRYO)) {//融化
+                } else if (attachType.equals(CRYO)) {
 
                     elementalRemove(target, elementalCapability, damageSource);
                     target.attackEntityFrom(damageSource, damage * 3);
 
-                } else if (attachType.equals(ELECTRO)) {//超载
+                } else if (attachType.equals(ELECTRO)) {
 
                     elementalRemove(target, elementalCapability, damageSource);
                     elementalOverloaded(target);
 
-                }//差风岩
+                }
 
             } else if (damageType.equals(CRYO)) {
 
@@ -117,7 +117,7 @@ public class Elemental {
                 } else if (attachType.equals(HYDRO)) {
 
 
-                    //冻结 frozen
+
 
                 } else if (attachType.equals(PYRO)) {
 
@@ -126,7 +126,6 @@ public class Elemental {
 
                 } else if (attachType.equals(ELECTRO)) {
 
-                    //超导 super conduct
                     elementalRemove(target, elementalCapability, damageSource);
                     elementalSuperconduct(target);
 
@@ -142,19 +141,16 @@ public class Elemental {
 
                 } else if (attachType.equals(HYDRO)) {
 
-                    //感电
                     elementalRemove(target, elementalCapability, damageSource);
                     elementalElectroCharged(target);
 
                 } else if (attachType.equals(PYRO)) {
 
-                    //超载
                     elementalRemove(target, elementalCapability, damageSource);
                     elementalOverloaded(target);
 
                 } else if (attachType.equals(CRYO)) {
 
-                    //超导
                     elementalRemove(target, elementalCapability, damageSource);
                     elementalSuperconduct(target);
 
@@ -201,7 +197,7 @@ public class Elemental {
         SimpleNetworkWrapperLoader.INSTANCE.sendToAll(new MessageElemental(target));
     }
 
-    public static void elementalOverloaded(EntityLivingBase target) {//超载
+    public static void elementalOverloaded(EntityLivingBase target) {
 
         AxisAlignedBB aabb = new AxisAlignedBB(target.posX + 2, target.posY + 2, target.posZ + 2,
                 target.posX - 2, target.posY - 2, target.posZ - 2);
@@ -218,7 +214,7 @@ public class Elemental {
 
     }
 
-    public static void elementalSuperconduct(EntityLivingBase target) {//超导
+    public static void elementalSuperconduct(EntityLivingBase target) {
 
         AxisAlignedBB aabb = new AxisAlignedBB(target.posX + 2, target.posY + 2, target.posZ + 2,
                 target.posX - 2, target.posY - 2, target.posZ - 2);

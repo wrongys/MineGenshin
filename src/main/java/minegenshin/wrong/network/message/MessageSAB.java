@@ -2,7 +2,7 @@ package minegenshin.wrong.network.message;
 
 import io.netty.buffer.ByteBuf;
 import minegenshin.wrong.item.weapon.EnumSAB;
-import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;

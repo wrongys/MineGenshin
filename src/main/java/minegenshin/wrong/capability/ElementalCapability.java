@@ -6,9 +6,9 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class ElementalCapability implements INBTSerializable<NBTTagCompound> {
 
-    private int elementalAmount;    // 元素 量/时间
-    private String elementalType;   // 元素类型
-    private int elementalCd;        //元素附着cd
+    private int elementalAmount;
+    private String elementalType;
+    private int elementalCd;
 
     public static final int ELEMENTAL_AMOUNT = 10 * 20;
     public static final int ELEMENTAL_CD = 1 * 20;

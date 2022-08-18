@@ -3,8 +3,9 @@ package minegenshin.wrong.item.weapon;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import minegenshin.wrong.MineGenshin;
+import minegenshin.wrong.api.IMineGenshinEntity;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import minegenshin.wrong.capability.MGCapability;
-import minegenshin.wrong.entity.skill.IMineGenshinEntity;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
@@ -17,13 +18,11 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -111,11 +110,14 @@ public class ItemXiao extends Item implements IMineGenshinWeapon {
                 if (worldIn.isRemote) {
                     for (int i = 1; i <= 8; i++) {
                         double x = entityIn.posX - 4 * Math.sin(45 * i * 0.017453292F) * (0.25 + 0.75 * Math.random());
-                        double y = entityIn.posY + 0.5 * Math.random();
+                        double y = entityIn.posY + 0.5 - Math.random();
                         double z = entityIn.posZ + 4 * Math.cos(45 * i * 0.017453292F) * (0.25 + 0.75 * Math.random());
                         worldIn.spawnParticle(XIAO_BURST, false, x, y, z, 0, 0, 0);
                     }
                 }
+
+                worldIn.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_SMALL_FALL, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F));
+
             }
         }
     }

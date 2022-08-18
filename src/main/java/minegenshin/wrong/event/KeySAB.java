@@ -3,7 +3,7 @@ package minegenshin.wrong.event;
 
 import minegenshin.wrong.item.weapon.EnumSAB;
 import minegenshin.wrong.init.KeyBindingInit;
-import minegenshin.wrong.item.weapon.IMineGenshinWeapon;
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSAB;
 import net.minecraft.client.Minecraft;

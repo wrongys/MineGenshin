@@ -1,4 +1,4 @@
-package minegenshin.wrong.entity.skill;
+package minegenshin.wrong.api;
 
 public interface IMineGenshinEntity  {
 }

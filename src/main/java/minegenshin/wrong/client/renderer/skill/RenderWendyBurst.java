@@ -1,4 +1,4 @@
-package minegenshin.wrong.client.render.skill;
+package minegenshin.wrong.client.renderer.skill;
 
 
 import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;

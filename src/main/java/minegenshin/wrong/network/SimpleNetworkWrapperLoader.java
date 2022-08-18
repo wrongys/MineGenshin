@@ -17,9 +17,9 @@ public class SimpleNetworkWrapperLoader {
 
     public static void init() {
         registerMessage(MessageElemental.Handler.class, MessageElemental.class, Side.CLIENT);
-        registerMessage(MessageSAB.Handler.class, MessageSAB.class, Side.SERVER);//服务端技能
+        registerMessage(MessageSAB.Handler.class, MessageSAB.class, Side.SERVER);
 
-        registerMessage(MessageSABClient.Handler.class, MessageSABClient.class, Side.CLIENT);//客户端技能&特效
+        registerMessage(MessageSABClient.Handler.class, MessageSABClient.class, Side.CLIENT);
         MessageSABClient.Init();
 
     }

@@ -2,7 +2,7 @@ package minegenshin.wrong.entity.skill.wendy;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import minegenshin.wrong.entity.skill.IMineGenshinEntity;
+import minegenshin.wrong.api.IMineGenshinEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

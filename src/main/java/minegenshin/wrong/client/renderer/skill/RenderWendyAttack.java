@@ -1,4 +1,4 @@
-package minegenshin.wrong.client.render.skill;
+package minegenshin.wrong.client.renderer.skill;
 
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import net.minecraft.client.renderer.BufferBuilder;

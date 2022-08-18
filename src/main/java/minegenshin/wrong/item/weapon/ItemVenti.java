@@ -1,10 +1,13 @@
 package minegenshin.wrong.item.weapon;
 
+import minegenshin.wrong.api.IMineGenshinWeapon;
 import minegenshin.wrong.capability.MGCapability;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.init.CapabilityInit;
 import minegenshin.wrong.network.SimpleNetworkWrapperLoader;
 import minegenshin.wrong.network.message.MessageSABClient;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,12 +21,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
+import static minegenshin.wrong.Data.TOOLTIP_VENTI;
 import static minegenshin.wrong.creativetab.CreativeTab.wrongCreativeTab;
 
 public class ItemVenti extends Item implements IMineGenshinWeapon {
@@ -146,6 +152,12 @@ public class ItemVenti extends Item implements IMineGenshinWeapon {
         return arrow;
     }
 
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(TextFormatting.DARK_GREEN + I18n.format(TOOLTIP_VENTI));
+    }
 
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {

@@ -17,6 +17,5 @@ public class MGUpdate {
             MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
             capability.tick();
         }
-
     }
 }

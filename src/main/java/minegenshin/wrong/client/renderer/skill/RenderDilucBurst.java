@@ -1,4 +1,4 @@
-package minegenshin.wrong.client.render.skill;
+package minegenshin.wrong.client.renderer.skill;
 
 import minegenshin.wrong.client.model.ModelDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
