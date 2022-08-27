@@ -4,12 +4,14 @@ import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst1
 import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst2;
 import minegenshin.wrong.client.renderer.skill.NoContentRender.RenderDilucBurst3;
 import minegenshin.wrong.client.renderer.skill.RenderDilucBurst;
+import minegenshin.wrong.client.renderer.skill.RenderNingGuangSkill;
 import minegenshin.wrong.client.renderer.skill.RenderWendyAttack;
 import minegenshin.wrong.client.renderer.skill.RenderWendyBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle3;
+import minegenshin.wrong.entity.skill.ningguang.EntityNingGuangSkill;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyAttack;
 import minegenshin.wrong.entity.skill.wendy.EntityWendyBurst;
 import net.minecraft.client.Minecraft;
@@ -23,5 +25,6 @@ public class RenderInit {
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle1.class, new RenderDilucBurst1(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle2.class, new RenderDilucBurst2(Minecraft.getMinecraft().getRenderManager()));
         Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityDilucSkillParticle3.class, new RenderDilucBurst3(Minecraft.getMinecraft().getRenderManager()));
+        Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityNingGuangSkill.class, new RenderNingGuangSkill(Minecraft.getMinecraft().getRenderManager()));
     }
 }

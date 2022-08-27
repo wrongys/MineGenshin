@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public class RenderDilucBurst extends RenderLiving<EntityDilucBurst> {
 
-    private static ResourceLocation DILUC_TEXTURE = new ResourceLocation("minegenshin:textures/skill/diluc_burst.png");
+    private static ResourceLocation TEXTURE = new ResourceLocation("minegenshin:textures/skill/diluc_burst.png");
 
     public RenderDilucBurst(RenderManager rendermanagerIn) {
         super(rendermanagerIn, new ModelDilucBurst(), 0.5f);
@@ -22,6 +22,6 @@ public class RenderDilucBurst extends RenderLiving<EntityDilucBurst> {
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(EntityDilucBurst entity) {
-        return DILUC_TEXTURE;
+        return TEXTURE;
     }
 }

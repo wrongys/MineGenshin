@@ -1,4 +1,4 @@
-package minegenshin.wrong.entity;
+package minegenshin.wrong.entity.skill.ningguang;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,7 +9,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -23,8 +22,13 @@ public class EntityNingGuangA extends Entity implements IProjectile {
 
     public EntityLivingBase thrower;
     public EntityLivingBase target;
+    public static final float SPEED = 1.25F;
+    public double prevMotionX;
+    public double prevMotionY;
+    public double prevMotionZ;
+
+
     public static final DataParameter<Integer> TARGET_ENTITY_ID = EntityDataManager.<Integer>createKey(EntityNingGuangA.class, DataSerializers.VARINT);
-    public static final float SPEED = 1.5F;
 
     public EntityNingGuangA(World worldIn) {
         super(worldIn);
@@ -39,7 +43,7 @@ public class EntityNingGuangA extends Entity implements IProjectile {
 
     @Override
     protected void entityInit() {
-        this.dataManager.register(TARGET_ENTITY_ID, 0);
+        this.dataManager.register(TARGET_ENTITY_ID, -1);
     }
 
     public void shoot(Entity shooter, float pitch, float yaw, float p_184547_4_, float velocity, float inaccuracy) {
@@ -98,7 +102,7 @@ public class EntityNingGuangA extends Entity implements IProjectile {
     @Nullable
     protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
         Entity entity = null;
-        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D), null);
+        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(2.0D), null);
         double d0 = 0.0D;
 
         for (int i = 0; i < list.size(); ++i) {
@@ -125,6 +129,9 @@ public class EntityNingGuangA extends Entity implements IProjectile {
     @Override
     public void onUpdate() {
 
+        this.lastTickPosX = posX;
+        this.lastTickPosY = posY;
+        this.lastTickPosZ = posZ;
         super.onUpdate();
 
         if (ticksExisted >= 20 * 4) {
@@ -132,9 +139,7 @@ public class EntityNingGuangA extends Entity implements IProjectile {
         }
 
         tryTargeting();
-
         setRotation();
-
 
         Vec3d vec3d1 = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d vec3d = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -168,6 +173,8 @@ public class EntityNingGuangA extends Entity implements IProjectile {
         this.posX += this.motionX;
         this.posY += this.motionY;
         this.posZ += this.motionZ;
+
+
         float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
@@ -190,69 +197,61 @@ public class EntityNingGuangA extends Entity implements IProjectile {
         this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
         this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
 
-        if (this.isInWater()) {
-            for (int i = 0; i < 4; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
-            }
-        }
-
-        if (this.isWet()) {
-            this.extinguish();
-        }
-
 
         this.setPosition(this.posX, this.posY, this.posZ);
         this.doBlockCollisions();
 
     }
 
-
     public void tryTargeting() {
 
-        if (getTargetEntityId() == 0) {
-            this.target = findEntity(15, 3);
-            if (this.target != null && target.isEntityAlive()) {
+        if (getTargetEntityId() == -1) {
+            this.target = findEntity(5, 0);
+            if (!this.world.isRemote && this.target != null && target.isEntityAlive()) {
                 this.dataManager.set(TARGET_ENTITY_ID, target.getEntityId());
             }
         }
 
         if (!this.world.isRemote && this.target == null) {
-            this.dataManager.set(TARGET_ENTITY_ID, 0);
+            this.dataManager.set(TARGET_ENTITY_ID, -1);
         }
 
     }
 
     public void setRotation() {
 
+        this.prevMotionX = this.motionX;
+        this.prevMotionY = this.motionY;
+        this.prevMotionZ = this.motionZ;
+
         Entity entity = this.world.getEntityByID(getTargetEntityId());
 
         if (entity != null && entity instanceof EntityLivingBase && entity.isEntityAlive()) {
             Vec3d vec3d1 = new Vec3d(this.motionX, this.motionY, this.motionZ);//速度方向
             Vec3d vec3d2 = new Vec3d(this.posX, this.posY, this.posZ);
-            Vec3d vec3d3 = new Vec3d(entity.posX, entity.posY + 0.5, entity.posZ);
+            Vec3d vec3d3 = new Vec3d(entity.posX, entity.posY + 0.5 * entity.getEyeHeight(), entity.posZ);
             Vec3d vec3d = vec3d2.subtractReverse(vec3d3).normalize();//目标方向单位向量
 
             if (vec3d == Vec3d.ZERO) return;
 
-            double d = vec3d1.dotProduct(vec3d) / (vec3d1.lengthVector() * vec3d.lengthVector());
+//            double d = vec3d1.dotProduct(vec3d) / (vec3d1.lengthVector() * vec3d.lengthVector());
+//
+//            if (d > 1 || d < -1) return;
 
-            if (d >= 1 || d <= -1) return;
+//            double angle = Math.acos(d);
+//            double maxAngle = 0.523D;
 
-            double angle = Math.acos(d);
-            double maxAngle = 0.523;
-
-            if (angle < maxAngle) {
-                this.motionX = vec3d.scale(SPEED).x;
-                this.motionY = vec3d.scale(SPEED).y;
-                this.motionZ = vec3d.scale(SPEED).z;
-            } else {
-                Vec3d vec3d4 = vec3d1.add(vec3d).normalize();//方向修正
-                if (vec3d4 == Vec3d.ZERO) return;
-                Vec3d vec3d5 = vec3d4.scale(SPEED);
-                this.motionX = vec3d5.x;
-                this.motionY = vec3d5.y;
-                this.motionZ = vec3d5.z;
-            }
+//            if (angle < maxAngle) {
+//                this.motionX = vec3d.x * SPEED;
+//                this.motionY = vec3d.y * SPEED;
+//                this.motionZ = vec3d.z * SPEED;
+//            } else if (angle >= maxAngle) {
+            Vec3d vec3d4 = vec3d1.add(vec3d.scale(0.75)).normalize();//方向修正
+            if (vec3d4 == Vec3d.ZERO) return;
+            this.motionX = vec3d4.x * SPEED;
+            this.motionY = vec3d4.y * SPEED;
+            this.motionZ = vec3d4.z * SPEED;
+//            }
 
         }
     }
@@ -263,7 +262,7 @@ public class EntityNingGuangA extends Entity implements IProjectile {
         double y = this.motionY;
         double z = this.motionZ;
         double l = Math.sqrt(x * x + y * y + z * z);
-        if (l != 0) {
+        if (l != 0 && l > 1E-4D) {
             x = x / l;
             y = y / l;
             z = z / l;
@@ -276,8 +275,7 @@ public class EntityNingGuangA extends Entity implements IProjectile {
             List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().offset(x * i * (i + 1) / 2, y * i * (i + 1) / 2, z * i * (i + 1) / 2).grow(i));
             if (!entities.isEmpty()) {
 
-                for (Entity entity : entities
-                ) {
+                for (Entity entity : entities) {
                     if (entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer) && entity.isEntityAlive()) {
 
                         EntityLivingBase target2 = (EntityLivingBase) entity;
@@ -317,6 +315,8 @@ public class EntityNingGuangA extends Entity implements IProjectile {
     @Override
     protected void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(TARGET_ENTITY_ID, compound.getInteger("TargetEntityId"));
+
+
     }
 
     @Override

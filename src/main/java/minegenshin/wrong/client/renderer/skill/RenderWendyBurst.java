@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 @SideOnly(Side.CLIENT)
 public class RenderWendyBurst extends Render<EntityWendyBurst> {
-    public static final ResourceLocation WENDY_BURST_TEXTURE = new ResourceLocation("minegenshin:textures/skill/wendy_burst.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation("minegenshin:textures/skill/wendy_burst.png");
 
 
     public RenderWendyBurst(RenderManager renderManager) {
@@ -47,7 +47,7 @@ public class RenderWendyBurst extends Render<EntityWendyBurst> {
 
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
         GlStateManager.disableLighting();
-        Minecraft.getMinecraft().renderEngine.bindTexture(WENDY_BURST_TEXTURE);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
         Tessellator tes = Tessellator.getInstance();
 
@@ -70,6 +70,6 @@ public class RenderWendyBurst extends Render<EntityWendyBurst> {
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(EntityWendyBurst entity) {
-        return WENDY_BURST_TEXTURE;
+        return TEXTURE;
     }
 }

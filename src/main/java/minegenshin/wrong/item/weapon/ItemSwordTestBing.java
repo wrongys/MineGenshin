@@ -1,6 +1,6 @@
 package minegenshin.wrong.item.weapon;
 
-import minegenshin.wrong.entity.EntityNingGuangA;
+import minegenshin.wrong.entity.skill.ningguang.EntityNingGuangA;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

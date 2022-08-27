@@ -17,8 +17,8 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public class RenderWendyAttack extends Render<EntityWendyAttack> {
 
-    public static final ResourceLocation WENDY_ATTACK_TEXTURE1 = new ResourceLocation("minegenshin:textures/skill/wendy_attack_1.png");
-    public static final ResourceLocation WENDY_ATTACK_TEXTURE2 = new ResourceLocation("minegenshin:textures/skill/wendy_attack_2.png");
+    public static final ResourceLocation TEXTURE1 = new ResourceLocation("minegenshin:textures/skill/wendy_attack_1.png");
+    public static final ResourceLocation TEXTURE2 = new ResourceLocation("minegenshin:textures/skill/wendy_attack_2.png");
 
     public RenderWendyAttack(RenderManager renderManager) {
         super(renderManager);
@@ -28,10 +28,10 @@ public class RenderWendyAttack extends Render<EntityWendyAttack> {
     public void doRender(EntityWendyAttack entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
         if (entity.getIsCharge()) {
-            this.bindTexture(WENDY_ATTACK_TEXTURE2);
+            this.bindTexture(TEXTURE2);
 
         } else {
-            this.bindTexture(WENDY_ATTACK_TEXTURE1);
+            this.bindTexture(TEXTURE1);
 
         }
 
@@ -121,10 +121,10 @@ public class RenderWendyAttack extends Render<EntityWendyAttack> {
     protected ResourceLocation getEntityTexture(EntityWendyAttack entity) {
 
         if (entity.getIsCharge()) {
-            return WENDY_ATTACK_TEXTURE2;
+            return TEXTURE2;
 
         } else {
-            return WENDY_ATTACK_TEXTURE1;
+            return TEXTURE1;
 
         }
     }
