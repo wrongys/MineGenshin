@@ -2,7 +2,6 @@ package minegenshin.wrong.registery;
 
 
 import minegenshin.wrong.MineGenshin;
-import minegenshin.wrong.entity.EntityGeoTest;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucBurst;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle1;
 import minegenshin.wrong.entity.skill.diluc.EntityDilucSkillParticle2;
@@ -28,7 +27,6 @@ public class EntityRegistryHandler {
     public static EntityEntry DILUC_SKILL1 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle1.class).id("diluc_skill1", nextId++).name(MineGenshin.MOD_ID + "diluc_skill1").tracker(80, 1, true).build();
     public static EntityEntry DILUC_SKILL2 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle2.class).id("diluc_skill2", nextId++).name(MineGenshin.MOD_ID + "diluc_skill2").tracker(80, 1, true).build();
     public static EntityEntry DILUC_SKILL3 = EntityEntryBuilder.create().entity(EntityDilucSkillParticle3.class).id("diluc_skill3", nextId++).name(MineGenshin.MOD_ID + "diluc_skill3").tracker(80, 1, true).build();
-    public static EntityEntry GEO_TEST = EntityEntryBuilder.create().entity(EntityGeoTest.class).id("get_test", nextId++).name(MineGenshin.MOD_ID + "geo_test").tracker(80, 3, true).build();
     public static EntityEntry NING_GUANG_A = EntityEntryBuilder.create().entity(EntityNingGuangA.class).id("ning_guang_a", nextId++).name(MineGenshin.MOD_ID + "ning_guang_a").tracker(80, 1, true).build();
     public static EntityEntry NING_GUANG_SKILL = EntityEntryBuilder.create().entity(EntityNingGuangSkill.class).id("ning_guang_skill", nextId++).name(MineGenshin.MOD_ID + "ning_guang_skill").tracker(80, 1, true).build();
 
@@ -40,7 +38,6 @@ public class EntityRegistryHandler {
             DILUC_SKILL1,
             DILUC_SKILL2,
             DILUC_SKILL3,
-            GEO_TEST,
             NING_GUANG_A,
             NING_GUANG_SKILL
     };

@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public class RenderNingGuangSkill extends RenderLiving<EntityNingGuangSkill> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation("minegenshin:textures/skill/ningguang_skill.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation("minegenshin:textures/skill/ning_guang_skill.png");
 
     public RenderNingGuangSkill(RenderManager rendermanagerIn) {
         super(rendermanagerIn, new ModelNingGuangSkill(), 0.5F);

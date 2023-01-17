@@ -21,10 +21,6 @@ public class MineGenshin {
 
     private static Logger logger;
 
-    public MineGenshin() {
-        GeckoLib.initialize();
-    }
-
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -37,6 +33,7 @@ public class MineGenshin {
         EventInit.init();
         CapabilityInit.init();
         SimpleNetworkWrapperLoader.init();
+        GeckoLib.initialize();
     }
 
     @EventHandler

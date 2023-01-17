@@ -7,8 +7,6 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
-
-
 }
 
 
@@ -28,16 +26,12 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 
 repositories {
-
-
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
-
 dependencies {
-
-
     implementation fg.deobf('software.bernie.geckolib:forge-1.12.2-geckolib:3.0.22')
 }
+
 
 
 
@@ -139,4 +133,4 @@ publishing {
     }
 }
 
-//sourceSets { main { output.resourcesDir = output.classesDir } }
+sourceSets { main { output.resourcesDir = output.classesDir } }

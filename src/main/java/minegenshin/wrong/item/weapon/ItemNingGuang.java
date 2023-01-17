@@ -36,7 +36,8 @@ public class ItemNingGuang extends Item implements IMineGenshinWeapon {
 
         if (!worldIn.isRemote) {
             EntityNingGuangSkill entity = new EntityNingGuangSkill(worldIn);
-            entity.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
+            entity.setPosition(playerIn.posX, playerIn.posY - 3, playerIn.posZ);
+            entity.rotationYaw = playerIn.rotationYaw;
             worldIn.spawnEntity(entity);
         }
 

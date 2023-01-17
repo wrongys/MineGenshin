@@ -66,9 +66,7 @@ public class ItemXiao extends Item implements IMineGenshinWeapon {
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 
         if (entityIn instanceof EntityPlayer) {
-
             EntityPlayer player = (EntityPlayer) entityIn;
-
             MGCapability capability = player.getCapability(CapabilityInit.MGWEAPON, null);
 
             if (capability.hasMGState(MGCapability.EnumSABState.XIAO_EXPLOSION)) {
@@ -118,6 +116,14 @@ public class ItemXiao extends Item implements IMineGenshinWeapon {
 
                 worldIn.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_SMALL_FALL, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F));
 
+            }
+
+            if (player.getHeldItemMainhand() != stack && capability.hasMGState(MGCapability.EnumSABState.XIAO_EXPLOSION)) {
+                capability.removeMGState(MGCapability.EnumSABState.XIAO_EXPLOSION);
+
+                if (capability.hasMGState(MGCapability.EnumSABState.PLUNGE_ATTACK)) {
+                    capability.removeMGState(MGCapability.EnumSABState.PLUNGE_ATTACK);
+                }
             }
         }
     }
